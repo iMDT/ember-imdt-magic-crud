@@ -24,16 +24,16 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   setupController(controller, model) {
     this._super(controller, model);
     const{
-      routeBase,
+      routeName,
       validationObject,
       definitionObject,
       magicCrudObject,
-    } = getProperties(this, 'routeBase', 'validationObject', 'definitionObject', 'magicCrudObject');
+    } = getProperties(this, 'routeName', 'validationObject', 'definitionObject', 'magicCrudObject');
 
     controller.reopen(MagicCrud);
 
     [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
-        controller.set(obj, this.controllerFor(routeBase).get(obj));
+        controller.set(obj, this.controllerFor(routeName).get(obj));
     });
 
     controller.init();
@@ -41,7 +41,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   saveRecordSuccess(){
     let controller = this.get('controller');
-    let routeBase = this.get('routeBase');
+    let routeName = this.get('routeName');
     let saveMessage = this.get('saveMessage');
     let flashMessages = Ember.get(this, 'flashMessages');
 
@@ -52,7 +52,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
         controller.transitionToRoute(routeAfter);
       }
       else{
-        controller.transitionToRoute(routeBase);
+        controller.transitionToRoute(routeName);
       }
       flashMessages.success(saveMessage);
     },() => {
@@ -96,7 +96,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     },
 
     cancelAction(){
-      this.transitionTo(this.get('routeBase'));
+      this.transitionTo(this.get('routeName'));
     },
 
     // Rollback model

@@ -15,12 +15,12 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   setupController(controller, model) {
     this._super(controller, model);
     const{
-      routeBase
-    } = getProperties(this, 'routeBase');
+      routeName
+    } = getProperties(this, 'routeName');
 
-    controller.set('magicCrud', this.controllerFor(routeBase).get('magicCrud'));
-    controller.set('tableSortPropertiesMC', this.controllerFor(routeBase).get('tableSortPropertiesMC'));
-    controller.set('tableOptionsMC', this.controllerFor(routeBase).get('tableOptionsMC'));
+    controller.set('magicCrud', this.controllerFor(routeName).get('magicCrud'));
+    controller.set('tableSortPropertiesMC', this.controllerFor(routeName).get('tableSortPropertiesMC'));
+    controller.set('tableOptionsMC', this.controllerFor(routeName).get('tableOptionsMC'));
 
     controller.init();
   },
@@ -30,17 +30,17 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   },
 
   model(){
-    return this.store.findAll(this.get('routeBase'), { reload: true });
+    return this.store.findAll(this.get('modelName'), { reload: true });
   },
 
   deleteRecord(item){
     const{
-      routeBase,
+      routeName,
       deleteMessageSuccess,
       deleteMessageFailed
-    } = getProperties(this, 'routeBase', 'deleteMessageSuccess', 'deleteMessageFailed');
+    } = getProperties(this, 'routeName', 'deleteMessageSuccess', 'deleteMessageFailed');
 
-    this.transitionTo(routeBase);
+    this.transitionTo(routeName);
     let flashMessages = Ember.get(this, 'flashMessages');
 
     item.deleteRecord();
@@ -54,19 +54,19 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   actions:{
     goToAction(operation, item){
       const{
-        routeBase,
+        routeName,
         deleteMessageSuccess,
         deleteMessageFailed
-      } = getProperties(this, 'routeBase', 'deleteMessageSuccess', 'deleteMessageFailed');
+      } = getProperties(this, 'routeName', 'deleteMessageSuccess', 'deleteMessageFailed');
 
       if(operation === 'delete'){
         this.deleteRecord(item);
       }
       else if(operation === 'add'){
-        this.transitionTo(routeBase + '.' + operation);
+        this.transitionTo(routeName + '.' + operation);
       }
       else{
-        this.transitionTo(routeBase + '.' + operation, item);
+        this.transitionTo(routeName + '.' + operation, item);
       }
     }
   }

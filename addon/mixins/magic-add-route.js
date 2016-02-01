@@ -11,6 +11,6 @@ export default Ember.Mixin.create(MagicActionRoute, {
   },
 
   model(){
-    return this.store.createRecord(this.get('routeBase'));
+    return this.store.createRecord(this.get('modelName'));
   }
 });
