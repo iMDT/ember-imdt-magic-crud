@@ -32,8 +32,10 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
     controller.reopen(MagicCrud);
 
+    let routeBaseName = routeName.split('.').slice(0, -1).join('.');
+
     [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
-        controller.set(obj, this.controllerFor(routeName).get(obj));
+        controller.set(obj, this.controllerFor(routeBaseName).get(obj));
     });
 
     controller.init();
@@ -45,6 +47,8 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     let saveMessage = this.get('saveMessage');
     let flashMessages = Ember.get(this, 'flashMessages');
 
+    let routeBaseName = routeName.split('.').slice(0, -1).join('.');
+
     this.set('canRollbackModel', false);
     controller.get('model').save().then(() => {
       let routeAfter;
@@ -52,7 +56,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
         controller.transitionToRoute(routeAfter);
       }
       else{
-        controller.transitionToRoute(routeName);
+        controller.transitionToRoute(routeBaseName);
       }
       flashMessages.success(saveMessage);
     },() => {
@@ -96,7 +100,8 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     },
 
     cancelAction(){
-      this.transitionTo(this.get('routeName'));
+      let routeBaseName = this.get('routeName').split('.').slice(0, -1).join('.');
+      this.transitionTo(routeBaseName);
     },
 
     // Rollback model
