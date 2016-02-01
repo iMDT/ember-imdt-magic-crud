@@ -53,11 +53,12 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   actions:{
     goToAction(operation, item){
-      const{
-        routeName,
+      const {
         deleteMessageSuccess,
         deleteMessageFailed
-      } = getProperties(this, 'routeName', 'deleteMessageSuccess', 'deleteMessageFailed');
+      } = getProperties(this, 'deleteMessageSuccess', 'deleteMessageFailed');
+      
+      let routeName = this.get('routeName').replace('.index', '');
 
       if(operation === 'delete'){
         this.deleteRecord(item);
