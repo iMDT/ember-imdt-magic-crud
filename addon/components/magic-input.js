@@ -31,6 +31,9 @@ export default Ember.Component.extend({
       case 'multiselect':
           this.set('multiSelect', true);
           break;
+      case 'textarea':
+          this.set('textarea', true);
+          break;
       default:
         break;
     }

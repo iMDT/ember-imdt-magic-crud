@@ -10,15 +10,12 @@
       {{else if text}}
         <input class="form-control" type="{{type}}" value="{{value}}" name="{{attribute}}" readonly>
       {{else if select}}
-
         {{#power-select disabled=readonly selected=value options=processedContent onchange=(action (mut value)) as |item|}}
           <div class="ember-power-select-item">
             {{power-select-item item=item processedLabel=processedLabel}}
           </div>
         {{/power-select}}
-
       {{else if multiSelect}}
-
         {{ember-selectize
           multiple=true
           content=processedContent
@@ -26,8 +23,10 @@
           optionLabelPath=processedLabel
           selection=value
           disabled=true}}
-
+      {{else if textarea}}
+      {{textarea class="form-control" value=value name=attribute readonly}}
       {{/if}}
+
     {{else}}
       {{#if checkbox}}
         {{input class="form-control" type=type checked=value name=attribute}}
@@ -54,6 +53,8 @@
           optionLabelPath=processedLabel
           selection=value}}
 
+      {{else if textarea}}
+        {{textarea class="form-control" value=value name=attribute}}
       {{/if}}
     {{/if}}
   </div>
