@@ -15,12 +15,12 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   setupController(controller, model) {
     this._super(controller, model);
     const{
-      routeName
-    } = getProperties(this, 'routeName');
+      modelName
+    } = getProperties(this, 'modelName');
 
-    controller.set('magicCrud', this.controllerFor(routeName).get('magicCrud'));
-    controller.set('tableSortPropertiesMC', this.controllerFor(routeName).get('tableSortPropertiesMC'));
-    controller.set('tableOptionsMC', this.controllerFor(routeName).get('tableOptionsMC'));
+    controller.set('magicCrud', this.controllerFor(modelName).get('magicCrud'));
+    controller.set('tableSortPropertiesMC', this.controllerFor(modelName).get('tableSortPropertiesMC'));
+    controller.set('tableOptionsMC', this.controllerFor(modelName).get('tableOptionsMC'));
 
     controller.init();
   },
