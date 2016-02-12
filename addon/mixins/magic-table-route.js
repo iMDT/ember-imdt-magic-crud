@@ -7,10 +7,10 @@ const {
 
 export default Ember.Mixin.create(MagicBaseRoute, {
   // Delete success message
-  deleteMessageSuccess: 'Record deleted',
+  deleteMessageSuccess: 'Registro Excluido',
 
   // Delete fail message
-  deleteMessageFailed: 'The record couldn\'t be deleted',
+  deleteMessageFailed: 'Falha na exclusão do registro',
 
   setupController(controller, model) {
     this._super(controller, model);
@@ -53,11 +53,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   actions:{
     goToAction(operation, item){
-      const {
-        deleteMessageSuccess,
-        deleteMessageFailed
-      } = getProperties(this, 'deleteMessageSuccess', 'deleteMessageFailed');
-      
+
       let routeName = this.get('routeName').replace('.index', '');
 
       if(operation === 'delete'){
