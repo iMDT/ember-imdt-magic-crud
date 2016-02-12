@@ -7,7 +7,7 @@ const {
 
 export default Ember.Mixin.create(MagicBaseRoute, {
   // Delete success message
-  deleteMessageSuccess: 'Registro Excluido',
+  deleteMessageSuccess: 'Registro excluido com sucesso!',
 
   // Delete fail message
   deleteMessageFailed: 'Falha na exclusão do registro',

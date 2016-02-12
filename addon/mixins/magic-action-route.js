@@ -17,7 +17,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   magicCrudObject: 'magicCrud',
 
   // Save success message
-  saveMessage: 'Registro salvo com sucesso',
+  saveMessage: 'Registro salvo com sucesso!',
 
   canRollbackModel: true,
 
