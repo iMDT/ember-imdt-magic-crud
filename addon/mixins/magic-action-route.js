@@ -102,19 +102,6 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     cancelAction(){
       let routeBaseName = this.get('routeName').split('.').slice(0, -1).join('.');
       this.transitionTo(routeBaseName);
-    },
-
-    // Rollback model
-    willTransition() {
-      const{
-        controller
-      } = getProperties(this, 'controller');
-
-      if(this.get('canRollbackModel')){
-        controller.get('model').rollbackAttributes();
-      }
-
-      this.set('canRollbackModel', true);
     }
   }
 });
