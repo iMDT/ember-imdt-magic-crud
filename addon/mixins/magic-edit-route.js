@@ -8,5 +8,11 @@ export default Ember.Mixin.create(MagicActionRoute, {
 
   model(param){
     return this.store.findRecord(this.get('modelName'), param.id, { reload: true });
+  },
+
+  actions:{
+    willTransition(){
+      this.get('currentModel').unloadRecord();
+    }
   }
 });
