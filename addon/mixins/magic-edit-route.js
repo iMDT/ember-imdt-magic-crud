@@ -12,7 +12,7 @@ export default Ember.Mixin.create(MagicActionRoute, {
 
   actions:{
     willTransition(){
-      this.get('currentModel').unloadRecord();
+      this.get('currentModel').rollbackAttributes();
     }
   }
 });
