@@ -1,6 +1,6 @@
 {
   "name": "ember-imdt-magic-crud",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "description": "Satisfy your CRUD needs.",
   "directories": {
     "doc": "doc",
