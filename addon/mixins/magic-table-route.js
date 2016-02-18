@@ -30,7 +30,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   },
 
   model(){
-    return this.store.findAll(this.get('modelName'), { reload: true });
+    return this.store.findAll(this.get('modelName'), { reload: true }).then(a => a.filterBy('isNew', false));
   },
 
   deleteRecord(item){
