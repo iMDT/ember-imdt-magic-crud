@@ -1,0 +1,19 @@
+.page {
+  &-header {
+    margin-top: 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
+
+  &-title {
+    margin-top: 0;
+  }
+
+  &-id {
+    font-size: 100%;
+    float: right;
+  }
+
+  &-body {}
+
+  &-footer {}
+}

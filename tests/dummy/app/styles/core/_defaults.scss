@@ -1,0 +1,39 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#__bs_notify__ {
+  top: auto !important;
+  right: auto !important;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 !important;
+}
+
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: $navbar-height;
+
+  &.no-layout {
+    padding-top: $line-height-computed;
+  }
+
+  @media print {
+    padding-top: $line-height-computed;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+hr.vertical {
+
+}

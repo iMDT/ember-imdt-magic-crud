@@ -1,0 +1,95 @@
+// ==================================================
+// VENDOR
+// ==================================================
+
+//@import "bower_components/bootstrap-sass/assets/stylesheets/bootstrap/bootstrap/_variables";
+@import "bower_components/bootswatch/cosmo/_variables.scss";
+@import "bower_components/font-awesome/scss/_variables.scss";
+
+// Need to be imported before bootstrap styles to overwrite
+@import "core/_variables";
+@import "_theme";
+
+@import "ember-power-select";
+@import "bower_components/font-awesome/scss/font-awesome.scss";
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap";
+@import "bower_components/bootswatch/cosmo/_bootswatch.scss";
+@import "bower_components/selectize-scss/src/selectize.bootstrap3.scss";
+
+@import "vendor/_daterangepicker";
+@import "vendor/_toastr";
+@import "vendor/_flashMessages";
+@import "vendor/_filePicker";
+@import "vendor/_nprogress";
+@import "vendor/_selectize";
+@import "vendor/_dataTables";
+@import "vendor/_c3";
+@import "vendor/_imdtTable";
+@import "vendor/_imdtMagicCrud";
+@import "vendor/_imdtTabs";
+
+
+// ==================================================
+// CORE
+// ==================================================
+
+@import "core/_variables";
+@import "core/_grid";
+@import "core/_misc";
+@import "core/_defaults";
+@import "core/_typo";
+@import "core/_form";
+@import "core/_lists";
+
+
+// ==================================================
+// HELPERS
+// ==================================================
+
+@import "helpers/_colors";
+
+
+// ==================================================
+// COMPONENTS
+// ==================================================
+
+@import "components/_affix";
+@import "components/_tabs";
+@import "components/_panel";
+@import "components/_btn";
+@import "components/_page";
+@import "components/_progress-bar";
+@import "components/_flash-messages";
+
+
+// ==================================================
+// PARTIALS
+// ==================================================
+
+@import "partials/_main";
+@import "partials/_navbar";
+@import "partials/_sidebar";
+
+
+// ==================================================
+// PAGES
+// ==================================================
+
+@import "pages/_error";
+@import "pages/_login";
+@import "pages/_dashboard";
+@import "pages/_preloader";
+@import "pages/_browserupgrade";
+
+
+// ==================================================
+// PRINT
+// ==================================================
+@import "_print";
+
+
+// ==================================================
+// SHAME ¯\_(ツ)_/¯
+// ==================================================
+
+@import "_shame";

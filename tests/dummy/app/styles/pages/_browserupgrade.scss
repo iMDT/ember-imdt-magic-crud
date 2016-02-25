@@ -1,0 +1,27 @@
+.browserupgrade {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  background-color: $navbar-default-bg;
+  color: rgba($btn-primary-color, .7);
+
+  &:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.25em; /* Adjusts for spacing */
+  }
+
+  p {
+    font-size: 2em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 100%;
+    text-align: center;
+    padding: 0 20%;
+  }
+}

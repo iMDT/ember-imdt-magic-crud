@@ -1,0 +1,23 @@
+/*
+  Create a bootstrap row with half gutters.
+*/
+.row-half-gutter {
+  @include make-row($grid-gutter-width / 2);
+
+  [class*="col-"] {
+    padding-left:  ($grid-gutter-width / 2) / 2;
+    padding-right: ($grid-gutter-width / 2) / 2;
+  }
+}
+
+/*
+  Create a bootstrap row without gutters.
+*/
+.row-collapsed {
+  @include make-row(0);
+
+  [class*="col-"] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "ember-imdt-magic-crud",
   "dependencies": {
-    "ember": "1.13.7",
+    "ember": "1.13.13",
     "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.3",
     "ember-cli-test-loader": "ember-cli-test-loader#0.1.3",
     "ember-data": "1.13.8",
@@ -9,10 +9,16 @@
     "ember-qunit": "0.4.9",
     "ember-qunit-notifications": "0.0.7",
     "ember-resolver": "~0.1.18",
-    "jquery": "^1.11.3",
+    "jquery": "1.11.3",
     "loader.js": "ember-cli/loader.js#3.2.1",
     "qunit": "~1.18.0",
+    "bootstrap": "~3.3",
+    "bootswatch": "~3.3.6",
     "bootstrap-switch": "^3.3.2",
-    "selectize": "~0.12.1"
+    "selectize": "~0.12.1",
+    "font-awesome": "~4.5.0",
+    "ember-addons.bs_for_ember": "~0.7.0",
+    "bootstrap-sass": "^3.3.6",
+    "selectize-scss": "^0.9.0"
   }
 }

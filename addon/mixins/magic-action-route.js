@@ -1,6 +1,7 @@
 import Ember from 'ember';
 import MagicCrud from './magic-crud';
 import MagicBaseRoute from './magic-base-route';
+import EmberValidations from 'ember-validations';
 
 const {
   getProperties
@@ -11,7 +12,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   validationObject: 'validations',
 
   // Definitions Object name
-  definitionObject: 'formDefinitionsMC',
+  definitionObject: 'MagicCrud.form',
 
   // Magic Crud Options object name
   magicCrudObject: 'magicCrud',
@@ -28,19 +29,17 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   setupController(controller, model) {
     this._super(controller, model);
     const {
-      routeName,
-      validationObject,
-      definitionObject,
-      magicCrudObject,
-    } = getProperties(this, 'routeName', 'validationObject', 'definitionObject', 'magicCrudObject');
-
-    controller.reopen(MagicCrud);
+      routeName
+    } = getProperties(this, 'routeName');
 
     let routeBaseName = routeName.split('.').slice(0, -1).join('.');
 
-    [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
-      controller.set(obj, this.controllerFor(routeBaseName).get(obj));
-    });
+    controller.set('MagicCrud', this.controllerFor(routeBaseName).get('MagicCrud'));
+    // [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
+    //   controller.set(obj, this.controllerFor(routeBaseName).get(obj));
+    // });
+
+    controller.reopen(MagicCrud);
 
     controller.init();
   },

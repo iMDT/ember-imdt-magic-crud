@@ -17,12 +17,6 @@ module.exports = {
 
   fileMapTokens: function() {
     return {
-      __controllerpath__: function(options) {
-        if (options.pod) {
-          return path.join(options.podPath, options.dasherizedModuleName);
-        }
-        return 'controllers';
-      },
       __routepath__: function(options) {
         if (options.pod) {
           return path.join(options.podPath, options.dasherizedModuleName);
@@ -35,17 +29,11 @@ module.exports = {
         }
         return options.dasherizedModuleName;
       },
-       __controllername__: function(options) {
+       __newroutename__: function(options) {
          if (options.pod) {
-           return 'controller';
+           return 'new/route';
          }
-         return options.dasherizedModuleName;
-       },
-       __addroutename__: function(options) {
-         if (options.pod) {
-           return 'add/route';
-         }
-         return path.join(options.dasherizedModuleName, 'add');
+         return path.join(options.dasherizedModuleName, 'new');
        },
        __editroutename__: function(options) {
          if (options.pod) {

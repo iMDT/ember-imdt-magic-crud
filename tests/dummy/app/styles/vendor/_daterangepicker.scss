@@ -1,0 +1,39 @@
+.daterangepicker {
+  .calendar {
+    font-size: 13px;
+  }
+
+  .ranges {
+    .input-mini {
+      font-size: 11px;
+      height: 30px;
+      line-height: 30px;
+      vertical-align: middle;
+      margin: 0 0 10px 0;
+      padding: 0 6px;
+      width: 74px;
+    }
+
+    li {
+      color: $btn-primary-bg;;
+
+      &.active,
+      &:hover {
+        background: $btn-primary-bg;
+        border: 1px solid $btn-primary-border;
+        color: $btn-primary-color;
+      }
+    }
+  }
+
+  td.active,
+  td.active:hover {
+    background: $btn-primary-bg;
+    border-color: $btn-primary-border;
+    color: $btn-primary-color;
+  }
+
+  td.in-range {
+    background: $gray-lighter;
+  }
+}

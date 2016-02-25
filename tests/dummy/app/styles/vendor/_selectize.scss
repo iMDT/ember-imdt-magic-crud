@@ -1,0 +1,142 @@
+.form-control {
+  &.selectize {
+    &-control {
+      min-height: $input-height-base;
+
+      .selectize-input {
+        min-height: $input-height-base;
+        border: 2px solid $input-border;
+        padding: $padding-base-vertical $padding-base-horizontal;
+        box-shadow: none;
+        transition: all ease-in-out .15s, box-shadow ease-in-out .15s, background-color ease-in-out .15s;
+
+        > input {
+          @include placeholder;
+        }
+
+        &.input-active {
+          border-color: $input-border-focus;
+        }
+
+        &.disabled,
+        .disabled & {
+          background-color: #ecf0f1;
+          opacity: 1;
+          pointer-events: none;
+          cursor: default;
+        }
+
+        .remove {
+          @include fa-icon();
+          content: $fa-var-times;
+          color: #000;
+          font-weight: bold;
+          margin-left: 5px;
+          opacity: .25;
+          transition: opacity ease-in-out .15s;
+
+          &:hover {
+            opacity: 1;
+            text-decoration: none;
+          }
+        }
+      }
+
+      .selectize-dropdown,
+      .selectize-input,
+      .selectize-input input {
+        font-size: $font-size-base;
+      }
+
+      .selectize-dropdown {
+        box-shadow: none;
+        border: 2px solid;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top: 1px solid $gray-light;
+        margin-top: -3px;
+
+        [data-selectable], .optgroup-header {
+          padding-left: $padding-base-horizontal;
+          padding-right: $padding-base-horizontal;
+        }
+
+        .active {
+          background-color: $input-border-focus;
+          color: $input-bg;
+        }
+      }
+
+      &.multi .selectize-input > div {
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 12px;
+      }
+
+      &.loading {
+        &:after {
+          @include fa-icon();
+          animation: fa-spin 1s infinite steps(8);
+          //animation: fa-spin 2s infinite linear;
+          content: $fa-var-spinner;
+          position: absolute;
+          right: 15px;
+          top: 13px;
+          font-size: 125%;
+          z-index: 1;
+          color: darken(#ecf0f1, 25%);
+        }
+      }
+    }
+  }
+
+  &-sm,
+  .form-group-sm & {
+    &.selectize {
+      &-control {
+        min-height: $input-height-small;
+
+        .selectize-input {
+          min-height: $input-height-small;
+          padding: $padding-small-vertical $padding-small-horizontal;
+        }
+
+        .selectize-dropdown,
+        .selectize-input,
+        .selectize-input input {
+          font-size: $font-size-small;
+        }
+
+        .selectize-dropdown [data-selectable], .optgroup-header {
+          padding-left: $padding-small-horizontal;
+          padding-right: $padding-small-horizontal;
+        }
+      }
+    }
+  }
+
+  &-lg,
+  .form-group-lg & {
+    &.selectize {
+      &-control {
+        min-height: $input-height-large;
+
+        .selectize-input {
+          min-height: $input-height-large;
+          padding: $padding-large-vertical $padding-large-horizontal;
+        }
+
+        .selectize-dropdown,
+        .selectize-input,
+        .selectize-input input {
+          font-size: $font-size-large;
+        }
+
+        .selectize-dropdown [data-selectable], .optgroup-header {
+          padding-left: $padding-large-horizontal;
+          padding-right: $padding-large-horizontal;
+        }
+      }
+    }
+  }
+}

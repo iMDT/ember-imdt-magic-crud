@@ -1,0 +1,7 @@
+.btn {
+  &.btn-align-middle {
+    > * {
+      vertical-align: middle;
+    }
+  }
+}

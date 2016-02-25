@@ -1,0 +1,22 @@
+dl {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: $screen-sm-max) {
+  .dl-horizontal.dl-horizontal-sm {
+    dt {
+      width: 65px;
+    }
+
+    dd {
+      margin-left: 80px;
+    }
+  }
+}
+
+.list-four-cols {
+  column-count: 4;
+  column-gap: $line-height-computed;
+}

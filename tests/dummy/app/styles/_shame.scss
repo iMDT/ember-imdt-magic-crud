@@ -1,0 +1,77 @@
+/**
+
+  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+   ヽ༼ຈل͜ຈ༽ﾉ RULES OF THE KINGDOM OF SHAME ヽ༼ຈل͜ຈ༽ﾉ
+  ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ஜ۩۞۩ஜ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+  1. If it’s a hack, it goes in here.
+  2. Document all hacks fully:
+    a. What part of the codebase does it relate to?
+    b. Why was this needed?
+    c. How does this fix it?
+    d. How might you fix it properly, given more time?
+  3. Do not blame the developer; if they explained why they had to do it then their reasons are probably (hopefully) valid.
+  4. Try and clean `_shame.scss` up when you have some down time.
+    a. Even better, get a tech-debt story in which you can dedicate actual sprint time to it.
+  5. Should always be imported lastly
+
+**/
+
+/*
+  Set overflow to hidden on bootstrap columns for mobile cases (mostly tables)
+  where the content is bigger than its content, but you dont want to have scroll.
+*/
+.col-force-overflow {
+  overflow: hidden !important;
+}
+
+/*
+  Removes gutter space left from .container-fluid
+*/
+.no-gutter {
+  margin-left: -($grid-gutter-width / 2);
+  margin-right: -($grid-gutter-width / 2);
+
+  // Removes margin-right when gutter is fixed
+  &.affix {
+    margin-right: 0;
+  }
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+/*
+  Set cursor to pointer in any element who have a ember action attached.
+*/
+a,
+button,
+span,
+tr,
+td,
+th,
+li,
+label,
+input {
+  &[data-ember-action] {
+    cursor: pointer;
+  }
+}
+
+/*
+  Fix to dropdowns inside a collapsible navbar on mobile viewport
+
+  Issue: https://github.com/twbs/bootstrap/issues/7968
+  Related: http://stackoverflow.com/questions/25750541/navbar-dropdown-not-working-on-mobile-devices
+*/
+.dropdown-backdrop {
+    position: static;
+}
+
+/*
+  Set cursor to pointer in any element who have an bootstrap target
+*/
+a[data-target] {
+  cursor: pointer;
+}

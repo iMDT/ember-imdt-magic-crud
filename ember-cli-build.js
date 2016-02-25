@@ -1,4 +1,5 @@
 /* global require, module */
+var Funnel = require('broccoli-funnel');
 var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
@@ -12,6 +13,13 @@ module.exports = function(defaults) {
     This build file does *not* influence how the addon or the app using it
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
+  var fontsTree = new Funnel('bower_components', {
+    srcDir: '/',
+    include: ['**/*.otf', '**/*.eot', '**/*.svg', '**/*.ttf', '**/*.woff', '**/*.woff2'],
+    destDir: '/assets/vendor'
+  });
 
-  return app.toTree();
+  app.import('bower_components/bootstrap/dist/js/bootstrap.js');
+
+  return app.toTree(fontsTree);
 };

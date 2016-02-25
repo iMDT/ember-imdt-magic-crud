@@ -1,0 +1,123 @@
+/*
+ * Dashboard
+ */
+
+body.dashboard {
+  background: $gray-lighter;
+}
+
+.dashboard-container {
+}
+
+.dashboardable-card {
+  display: inline-block;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12);
+  position: relative;
+  padding: $line-height-computed;
+  margin-right: $line-height-computed;
+  margin-bottom: $line-height-computed;
+  vertical-align: top;
+
+  @media (min-width: $screen-sm-max) {
+    &.half {
+      width: calc(50% - #{$line-height-computed / 2});
+
+      & + .half {
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+/* Panels */
+.panel-dashboard {
+  margin-bottom: 0;
+
+  > .panel-heading,
+  > .panel-body {
+    padding: 0;
+  }
+
+  > .panel-heading {
+    padding-bottom: ($line-height-computed / 2);
+    color: $gray-light;
+  }
+
+  > .panel-title {
+    padding-bottom: ($line-height-computed / 2);
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .table {
+    margin: 0;
+  }
+
+  .table-responsive {
+    @media (max-width: $screen-sm-max) {
+      margin-bottom: $line-height-computed;
+    }
+  }
+
+  // > .table:last-child,
+  // > .table-responsive:last-child,
+  // > .imdt-table-area:last-child {
+  //   border: 0;
+  //   margin-left: -$line-height-computed;
+  //   margin-right: -$line-height-computed;
+  // }
+  //
+  // > .table:only-child,
+  // > .table-responsive:only-child,
+  // > .imdt-table-area:only-child {
+  //   margin-top: -$line-height-computed;
+  //   margin-bottom: -$line-height-computed;
+  //
+  //   @media (max-width: $screen-xs-max) {
+  //     margin-bottom: $line-height-computed / 2;
+  //   }
+  // }
+  //
+  // > .imdt-table-area:only-child {
+  //   .table {
+  //     border: 0;
+  //     margin-top: 0;
+  //     margin-bottom: 0;
+  //   }
+  // }
+}
+
+.dl-dashboard {
+  column-count: 1;
+  column-rule: 1px outset $gray-lighter;
+
+  @media (min-width: $screen-xs-min) {
+    column-count: 2;
+  }
+
+  @media (min-width: $screen-lg-min) {
+    column-count: 3;
+  }
+
+  @media (max-width: $screen-xs-max) {
+    margin-top: $line-height-computed;
+  }
+
+  dt {
+    float: left;
+    clear: left;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 50%;
+  }
+
+  dd {
+    margin-left: 55%;
+    white-space: nowrap;
+  }
+}

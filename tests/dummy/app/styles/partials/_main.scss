@@ -1,0 +1,14 @@
+/*
+ * Main
+ */
+
+.main {
+  padding-top: $line-height-computed;
+  padding-bottom: $line-height-computed;
+}
+
+@media (min-width: $screen-sm-min) {
+  .main {
+
+  }
+}

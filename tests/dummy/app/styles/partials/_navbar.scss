@@ -1,0 +1,69 @@
+/*
+ * Navbar
+ */
+
+$gravatar-size: 30px;
+
+.navbar-container {
+  position: relative;
+  z-index: 1032; //above nprogress bar
+}
+
+.navbar-header {
+  position: relative;
+  text-align: center;
+}
+
+.navbar-toggle {
+  border: 0;
+  color: $btn-primary-color;
+  font-size: 21px;
+  padding: 2px 4px;
+  position: absolute;
+  right: 0;
+
+  &.navbar-toggle-left {
+    left: 0;
+    right: auto;
+    margin-left: 15px;
+  }
+}
+
+.navbar-brand {
+  display: inline-block;
+  float: none;
+  text-align: center;
+}
+
+.navbar-brand img {
+  height: 45px;
+  margin-top: -13px;
+  display: inline-block;
+}
+
+.navbar-right {
+  margin-right: 0;
+  text-align: right;
+}
+
+.navbar-user {
+  @include navbar-vertical-align($line-height-computed);
+  float: left;
+  margin-right: $line-height-computed;
+  position: relative;
+
+  &-name {
+    padding-left: $gravatar-size + 5;
+    color: $btn-primary-color;
+    &:hover,
+    &:focus {
+      color: $btn-primary-color;
+    }
+  }
+
+  &-gravatar {
+    position: absolute;
+    top: 50%;
+    margin-top: -($gravatar-size/2);
+  }
+}

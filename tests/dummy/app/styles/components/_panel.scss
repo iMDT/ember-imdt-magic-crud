@@ -1,0 +1,60 @@
+.panel.panel-vertical {
+  position: relative;
+  min-height: 225px;
+  border-left-width: 39px; //39px is .panel-heading height.
+
+  @media print {
+    min-height: 160px;
+    page-break-inside: avoid;
+    margin-top: $line-height-computed;
+
+    /* horizontal title */
+    min-height: 0;
+    border-left-width: 1px;
+    border-top-width: 37px;
+  }
+
+  .panel-heading {
+    min-width: 225px;
+    top: 0;
+    //left: 38px;
+    left: 0;
+    transform: rotate(90deg);
+    transform-origin: 0 0;
+    position: absolute;
+    text-align: right;
+
+    @media print {
+      min-width: 160px;
+
+      /* horizontal title */
+      min-width: 0;
+      //position: static;
+      top: -38px;
+      //background-color: #ecf0f1 !important;
+      transform: initial;
+      text-align: left;
+    }
+  }
+
+  .panel-title {
+    transform: rotate(180deg);
+
+    @media print {
+      font-size: 15px;
+
+      /* horizontal title */
+      transform: initial;
+    }
+  }
+
+  .panel-body,
+  .panel-body + .table,
+  .panel-body + .table-responsive,
+  > .table,
+  > .table-responsive {
+    background-color: #fff;
+    //border-left: 39px solid #ecf0f1; //39px is .panel-heading height.
+  }
+
+}

@@ -1,0 +1,14 @@
+.ember-imdt-tabs {
+  &-navigation {
+    @extend .nav;
+    @extend .nav-tabs;
+    @extend .nav-tabs.nav-tabs-full;
+  }
+  
+  &-content {
+    @extend .tab-content;
+    > .ember-imdt-tab-pane {
+      @extend .tab-pane;
+    }
+  }
+}

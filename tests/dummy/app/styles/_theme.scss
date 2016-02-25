@@ -1,0 +1,27 @@
+// --------------------------------------------------
+// Theme Variables
+// --------------------------------------------------
+$alert-danger-text: #fff;
+
+$input-height-base: 35px;
+
+
+//== Pagination
+//
+//##
+
+$pagination-color:                     $brand-primary;
+$pagination-bg:                        #fff;
+$pagination-border:                    #ddd;
+
+$pagination-hover-color:               $brand-primary;
+$pagination-hover-bg:                  $gray-lighter;
+$pagination-hover-border:              #ddd;
+
+$pagination-active-color:              #fff;
+$pagination-active-bg:                 $brand-primary;
+$pagination-active-border:             $brand-primary;
+
+$pagination-disabled-color:            $gray-light;
+$pagination-disabled-bg:               #fff;
+$pagination-disabled-border:           #ddd;

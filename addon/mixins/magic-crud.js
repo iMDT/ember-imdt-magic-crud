@@ -20,6 +20,7 @@ export default Ember.Mixin.create(EmberValidations, {
   // Set the definitions and rerun once
   init() {
     this._super();
+    console.log('initialize');
     this.setDefinitionsMC();
     this.initializeIfNotAlreadyMC();
   },
@@ -34,8 +35,7 @@ export default Ember.Mixin.create(EmberValidations, {
 
   // Set the definitions
   setDefinitionsMC() {
-    let definitionObject = this.get('definitionObject');
-    let definitions = this.get(definitionObject);
+    let definitions = this.get('MagicCrud.form');
     if (definitions) {
       let validations;
       definitions.forEach((definition, key) => {
@@ -51,14 +51,11 @@ export default Ember.Mixin.create(EmberValidations, {
 
         if (definition.selectFunction) {
           let selectFunction = definition.selectFunction;
-          this.set(definitionObject + '.' + [key] + '.selectContent', selectFunction(this));
+          this.set('MagicCrud.form' + '.' + [key] + '.selectContent', selectFunction(this));
         }
 
       });
-
-      if (!Object.keys(this.get('validations')).length) {
-        this.set('validations', validations);
-      }
+      this.set('validations', validations);
     }
   },
 

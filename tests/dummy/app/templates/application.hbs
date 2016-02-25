@@ -1,3 +1,15 @@
-<h2 id="title">Welcome to Ember</h2>
-
-{{outlet}}
+<main class="container-fluid {{if showSidebar (if shouldShowSidebar 'sidebar-open') }}">
+  <div class="row">
+    <div class="main col-lg-10 col-lg-offset-1">
+      <h2 id="title">Welcome to Ember</h2>
+      {{#link-to "country" class="btn btn-info"}}Country{{/link-to}}
+      {{#link-to "city" class="btn btn-info"}}City{{/link-to}}
+      {{outlet}}
+    </div>
+  </div>
+</main>
+<div class="flash-messages">
+  {{#each flashMessages.arrangedQueue as |flash|}}
+    {{flash-message flash=flash messageStyle='bootstrap' class='alert-flash'}}
+  {{/each}}
+</div>

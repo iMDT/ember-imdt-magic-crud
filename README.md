@@ -13,13 +13,13 @@ In order for this addon to work it will have to install it's required addons to 
 
 ## Setting up your magic-cruds
 
-### The blueprint
+### The Blueprint
 After you have everything installed and ready to go, it is time to start coding.
 in order to create a magic-crud you can use the blueprint that we provide like this: `ember generate magic-crud <resource name>`, this will create the routes, and the controller you need in order for the crud to work, after this you will only need
 to set the crud settings in your generated controller and create the routes in the router.
 
-### The router
-Now all you need to do is set the routes in your router. In your router you can use the `magicRouteMapper`, this will create the `index`, `add`, `edit` and `show` routes in your router in a single line of code. here is an example.
+### The Router
+Now all you need to do is set the routes in your router. In your router you can use the `magicRouteMapper`, this will create the `index`, `new`, `edit` and `show` routes in your router in a single line of code. here is an example.
 
 ```javascript
 // router.js
@@ -41,8 +41,9 @@ Router.map(function() {
 export default Router;
 ```
 
-### The controller
-Here is where most of the magic is set to happen. In the controller you set the table and form options. You only need to set these in one controller for each resource, the magic-crud will set the other controllers automatically for you.
+### The Base route Route
+If you used the blueprint this is the root route of the resource you have created. It already has some commented code to help you visualize what you want to end up with.
+Here is where most of the magic is set to happen. In the route you set the table and form options. You only need to set these in one route for each resource, the magic-crud will set the other routes automatically for you.
 
 The table options are set just like the [`ember-imdt-table`](https://www.npmjs.com/package/ember-imdt-table) addon you can see details there.
 
@@ -62,55 +63,71 @@ The validations use [`ember-validations`](https://github.com/dockyard/ember-vali
 
 ```javascript
 import Ember from 'ember';
+import MagicIndexRoute from 'ember-imdt-magic-crud/mixins/magic-index-route';
 
-const {
+const{
   A
 } = Ember;
 
-export default Ember.Controller.extend({
-  magicCrud: {
-    tableTitle: "Table title goes here",
-    crudTitle: "Form title goes here"
-  },
-
-  tableSortPropertiesMC: new A(['here comes the sort properties:asc']),
-  tableOptionsMC: new A([{
-    contentPath: 'id',
-    columnTitle: '#',
-    sortPath: 'id'
-  }, {
-    contentPath: 'name',
-    columnTitle: 'Full Name'
-  }, {
-    contentPath: 'city.name',
-    columnTitle: 'City'
-  }, {
-    contentPath: 'template',
-    columnTitle: 'Actions',
-    template: 'custom/table-actions-edit-only',
-    isSortable: false
-  }]),
-
-  formDefinitionsMC: [{
-    attribute: 'model.city',
-    label: 'City',
-    type: 'select',
-    selectFunction: function(self) {
-      return self.store.findAll('city');
+export default Ember.Route.extend(MagicIndexRoute, {
+  MagicCrud:{
+    options: {
+      tableTitle: "City",
+      crudTitle: "City CRUD"
     },
-    selectValuePath: 'id',
-    selectLabelPath: 'name',
-    validations: {
-      relationshipPresence: true
-    }
-  }, {
-    attribute: 'model.name',
-    label: 'Full Name',
-    type: 'text',
-    validations: {
-      presence: true,
-    }
-  }]
+
+    table: {
+      sortProperties: new A(['nome:asc']),
+      columns: new A([{
+        contentPath: 'id',
+        columnTitle: '#'
+      }, {
+        contentPath: 'name',
+        columnTitle: 'Name'
+      }, {
+        contentPath: 'country.name',
+        columnTitle: 'Country'
+      }, {
+        contentPath: 'active',
+        columnTitle: 'Active'
+      }, {
+        contentPath: 'template',
+        columnTitle: 'Actions',
+        template: 'custom/table-actions',
+        isSortable: false
+      }]),
+    },
+
+    form: [{
+      attribute: 'model.active',
+      type: 'switch',
+    }, {
+      attribute: 'model.country',
+      label: 'Country',
+      type: 'select',
+      selectFunction: function(self) {
+        return self.store.peekAll('country').filter((c) => {
+          return c.get('active') || c.get('id') === self.get('model.country.id');
+        });
+      },
+      selectValuePath: 'id',
+      selectLabelPath: 'name'
+    }, {
+      attribute: 'model.name',
+      label: 'Name',
+      type: 'text',
+      validations: {
+        presence: true,
+      }
+    }, {
+      attribute: 'model.description',
+      label: 'Description',
+      type: 'textarea',
+      validations: {
+        presence: true,
+      }
+    }]
+  }
 });
 ```
 

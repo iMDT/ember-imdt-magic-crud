@@ -1,0 +1,78 @@
+/*
+ * Error Page
+ */
+
+.error-page {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: $navbar-default-bg;
+
+  .navbar {
+    border-bottom: 0;
+
+    &-header {
+      text-align: center;
+      width: 100%;
+      margin: 0;
+    }
+
+    &-brand {
+      display: inline-block;
+      float: none;
+      text-align: center;
+    }
+  }
+}
+
+.error-body,
+.error-copy {
+  text-align: center;
+}
+
+.error-body {
+  margin-top: 275px;
+}
+
+.error-icon {
+  font-size: 12em;
+  line-height: 0;
+  color: rgba($btn-primary-color, .7);
+}
+
+.error-title {
+  font-size: 2em;
+  margin-bottom: $line-height-computed;
+  color: rgba($btn-primary-color, .7);
+}
+
+.error-btn {
+  background-color: transparent;
+  border: 1px solid rgba($btn-primary-color, .7);
+  color: rgba($btn-primary-color, .7);
+  text-transform: uppercase;
+  font-weight: bold;
+
+  &:hover,
+  &:focus {
+    background-color: rgba($btn-primary-color, .7);
+    color: $btn-primary-bg;
+  }
+}
+
+.error-copy {
+  margin-top: $line-height-computed;
+  color: rgba($btn-primary-color, .2);
+}
+
+.error-trace {
+  color: $btn-primary-bg;
+
+  pre {
+    overflow: auto;
+    max-height: 350px;
+    word-wrap: normal;
+  }
+}

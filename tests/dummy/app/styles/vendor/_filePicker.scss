@@ -1,0 +1,59 @@
+.file-picker {
+  position: relative;
+  cursor: pointer;
+
+  &.single {}
+  &.multiple {}
+  &.over {}
+
+  &__preview {
+    .over & {
+      display: none !important;
+    }
+
+    &__image {
+      &.single {}
+      &.multiple {}
+    }
+  }
+
+  &__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+
+    .over & {
+      display: none !important;
+    }
+
+    &__value {
+      @include gradient-striped;
+      @include animation(progress-bar-stripes 2s linear infinite);
+
+      background-color: $brand-info;
+      background-size: 20px 20px;
+      display: block;
+      height: 100%;
+      border-radius: 5px;
+    }
+  }
+
+  &__dropzone {
+  }
+
+  &__input {}
+
+  &__btns {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: inline-block;
+
+
+    .over & {
+      display: none;
+    }
+  }
+}

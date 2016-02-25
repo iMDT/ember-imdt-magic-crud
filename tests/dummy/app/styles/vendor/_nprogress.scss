@@ -1,0 +1,22 @@
+$nprogress-color: $brand-info;
+
+#nprogress {
+  .bar {
+    height: 5px;
+    background: $nprogress-color;
+  }
+
+  .spinner {
+    top: auto;
+    right: auto;
+    left: $line-height-computed;
+    bottom: $line-height-computed;
+    position: fixed !important;
+  }
+
+  .spinner-icon {
+    border-top-color: $nprogress-color;
+    border-left-color: $nprogress-color;
+  }
+
+}

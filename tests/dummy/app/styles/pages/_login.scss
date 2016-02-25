@@ -1,0 +1,113 @@
+/*
+ * Login
+ */
+
+.auth {
+  background-color: $gray-lighter;
+
+  &-content {
+    max-width: 330px;
+    margin: 0 auto;
+  }
+}
+
+.form-signin {
+  padding: $line-height-computed;
+  color: $gray;
+
+  &-brand {
+    display: block;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  &-version {
+    position: absolute;
+    right: 5px;
+    top: -15px;
+    font-size: 11px;
+  }
+
+  &-header {
+    text-align: center;
+    position: relative;
+  }
+
+  &-body {
+    margin-top: $line-height-computed;
+    color: #787878;
+  }
+
+  &-footer {
+    color: $gray;
+    font-size: 13px;
+    margin: ($line-height-computed/2) 0;
+    overflow: hidden;
+
+    .forgot-pass {
+      float: right;
+    }
+
+    .remember-me {
+      float: left;
+    }
+
+    .forgot-pass,
+    .remember-me {
+      margin: 0;
+    }
+
+
+    a:not(.btn) {
+      color: inherit;
+    }
+  }
+
+  &-title {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    color: #787878;
+    position: relative;
+    margin-bottom: 25px;
+    margin-top: 15px;
+
+    small {
+      position: absolute;
+      right: 5px;
+      bottom: -10px;
+      font-size: 11px;
+    }
+  }
+
+  .form-control {
+    height: $input-height-base * 4/3;
+    border-radius: 0;
+    position: relative;
+    z-index: 5;
+    border-radius: 0;
+    margin-bottom: -2px; // to sobresize the other input border
+
+    &:focus {
+      z-index: 10;
+      border-radius: $border-radius-base;
+    }
+
+    &:first-of-type {
+      border-top-right-radius: $border-radius-base;
+      border-top-left-radius: $border-radius-base;
+    }
+
+    &:last-of-type {
+      border-bottom-right-radius: $border-radius-base;
+      border-bottom-left-radius: $border-radius-base;
+      margin-bottom: 0;
+    }
+
+    &:only-of-type {
+      margin-bottom: ($line-height-computed / 2);
+    }
+  }
+}

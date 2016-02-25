@@ -18,7 +18,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
       modelName
     } = getProperties(this, 'modelName');
 
-    controller.set('magicCrud', this.controllerFor(modelName).get('magicCrud'));
+    controller.set('MagicCrud', this.controllerFor(modelName).get('MagicCrud'));
     controller.set('tableSortPropertiesMC', this.controllerFor(modelName).get('tableSortPropertiesMC'));
     controller.set('tableOptionsMC', this.controllerFor(modelName).get('tableOptionsMC'));
 
@@ -60,7 +60,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
       if (operation === 'delete') {
         this.deleteRecord(item);
-      } else if (operation === 'add') {
+      } else if (operation === 'new') {
         this.transitionTo(routeName + '.' + operation);
       } else {
         this.transitionTo(routeName + '.' + operation, item);

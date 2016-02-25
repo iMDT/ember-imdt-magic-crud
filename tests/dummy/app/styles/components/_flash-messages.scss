@@ -1,0 +1,104 @@
+$flash-message-width: 20% !default;
+$flash-message-min-width: 300px !default;
+
+.flash-messages {
+  position: fixed;
+  bottom: $line-height-computed;
+  right: $line-height-computed;
+  z-index: 1050;
+
+  @media (max-width: $screen-xs-min) {
+    left: $line-height-computed;
+  }
+
+  .alert {
+    cursor: pointer;
+    width: $flash-message-width;
+    min-width: $flash-message-min-width;
+    margin-bottom: ($line-height-computed/3);
+    transition: opacity .5s;
+    color: $btn-default-color;
+    background-text: $btn-default-bg;
+    opacity: .8;
+    box-shadow: none;
+    background-image: none !important;
+    position: relative;
+    padding-left: 50px;
+
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
+
+    &:focus,
+    &:hover {
+      box-shadow: none !important;
+      opacity: 1 !important;
+    }
+
+    &.exiting {
+      opacity: 0;
+    }
+
+    &:before {
+      @include fa-icon();
+      content: $fa-var-question-circle;
+      position: absolute;
+      left: 15px;
+      top: 13px;
+      font-size: 25px;
+    }
+
+    &-success {
+      color: $alert-success-text;
+      background-text: $alert-success-bg;
+
+      &:before {
+        content: $fa-var-check-circle;
+      }
+    }
+
+    &-danger {
+      color: $alert-danger-text;
+      background-text: $alert-danger-bg;
+
+      &:before {
+        content: $fa-var-exclamation-circle;
+      }
+    }
+
+    &-info {
+      color: $alert-info-text;
+      background-text: $alert-info-bg;
+
+      &:before {
+        content: $fa-var-info-circle;
+      }
+    }
+
+    &-warning {
+      color: $alert-warning-text;
+      background-text: $alert-warning-bg;
+
+      &:before {
+        content: $fa-var-exclamation-triangle;
+      }
+    }
+
+    &-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: .5;
+
+      &Bar {
+        background: white;
+        transform-property: width;
+        transition-timing-function: linear;
+        background-color: #fff;
+        height: 5px;
+        width: 0;
+      }
+    }
+  }
+}

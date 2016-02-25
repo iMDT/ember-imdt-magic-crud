@@ -2,19 +2,15 @@
   <div class="page-header">
     <h3 class="page-title">
       {{magicCrud.crudTitle}}
-      {{#if model.id}}
-        <small>#{{model.id}}</small>
-        <small class="pull-right"><b>Última Alteração:</b> {{moment-format model.modificacao 'L' allow-empty=true}}</small>
-      {{/if}}
+      {{teste}}
     </h3>
   </div>
-
   <div class="page-body">
     <form class="form" {{action "saveRecord" on="submit"}}>
       {{magic-form
         model=model
         errors=errors
-        definitions=formDefinitionsMC
+        definitions=MagicCrud.form
         submitted=submitted}}
 
         <hr>
