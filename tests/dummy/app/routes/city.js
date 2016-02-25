@@ -1,11 +1,11 @@
 import Ember from 'ember';
-import MagicIndexRoute from 'ember-imdt-magic-crud/mixins/magic-index-route';
+import MagicRootRoute from 'ember-imdt-magic-crud/mixins/magic-root-route';
 
 const{
   A
 } = Ember;
 
-export default Ember.Route.extend(MagicIndexRoute, {
+export default Ember.Route.extend(MagicRootRoute, {
   MagicCrud:{
     options: {
       tableTitle: "City",
