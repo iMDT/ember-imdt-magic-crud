@@ -21,9 +21,13 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   canRollbackModel: true,
 
+  renderTemplate: function() {
+    this.render('magic-crud/form');
+  },
+
   setupController(controller, model) {
     this._super(controller, model);
-    const{
+    const {
       routeName,
       validationObject,
       definitionObject,
@@ -35,13 +39,13 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     let routeBaseName = routeName.split('.').slice(0, -1).join('.');
 
     [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
-        controller.set(obj, this.controllerFor(routeBaseName).get(obj));
+      controller.set(obj, this.controllerFor(routeBaseName).get(obj));
     });
 
     controller.init();
   },
 
-  saveRecordSuccess(){
+  saveRecordSuccess() {
     let controller = this.get('controller');
     let routeName = this.get('routeName');
     let saveMessage = this.get('saveMessage');
@@ -52,33 +56,32 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     this.set('canRollbackModel', false);
     controller.get('model').save().then(() => {
       let routeAfter;
-      if(controller.get('magicCrud') && (routeAfter = controller.get('magicCrud.routeAfter'))){
+      if (controller.get('magicCrud') && (routeAfter = controller.get('magicCrud.routeAfter'))) {
         controller.transitionToRoute(routeAfter);
-      }
-      else{
+      } else {
         controller.transitionToRoute(routeBaseName);
       }
       flashMessages.success(saveMessage);
-    },() => {
-      let errors =  controller.get('model.errors')
-      errors.forEach(function(error){
+    }, () => {
+      let errors = controller.get('model.errors');
+      errors.forEach(function(error) {
         flashMessages.danger(error.message);
-      })
+      });
     });
   },
 
   // Fail saving record promisse callback
-  saveRecordFail(){
+  saveRecordFail() {
     let controller = this.get('controller');
     let flashMessages = Ember.get(this, 'flashMessages');
     let definitionObject = this.get('definitionObject');
 
     let errors = controller.get('errors.model') || controller.get('model.errors');
-    for(let item in errors){
-      if(errors.hasOwnProperty(item)){
+    for (let item in errors) {
+      if (errors.hasOwnProperty(item)) {
         let definitions = controller.get(definitionObject);
-        for(let def in definitions){
-          if(definitions[def] && 'model.'+item === definitions[def].attribute && errors.get(item).length){
+        for (let def in definitions) {
+          if (definitions[def] && 'model.' + item === definitions[def].attribute && errors.get(item).length) {
             flashMessages.danger(definitions[def].label + ' ' + errors.get(item));
           }
         }
@@ -86,22 +89,26 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     }
   },
 
-  actions:{
-    saveRecord(){
-      const{
-        controller
-      } = getProperties(this, 'controller');
-      controller.set('submitted', true);
-      controller.validate().then(() => {
-        this.saveRecordSuccess();
-      }, () => {
-        this.saveRecordFail();
-      });
-    },
+  actions: {
+    saveRecord() {
+        const {
+          controller
+        } = getProperties(this, 'controller');
+        controller.set('submitted', true);
+        controller.validate().then(() => {
+          this.saveRecordSuccess();
+        }, () => {
+          this.saveRecordFail();
+        });
+      },
 
-    cancelAction(){
-      let routeBaseName = this.get('routeName').split('.').slice(0, -1).join('.');
-      this.transitionTo(routeBaseName);
-    }
+      cancelAction() {
+        let routeBaseName = this.get('routeName').split('.').slice(0, -1).join('.');
+        this.transitionTo(routeBaseName);
+      },
+
+      willTransition() {
+        this.get('currentModel').rollbackAttributes();
+      }
   }
 });

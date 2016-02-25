@@ -1,6 +1,8 @@
 
   <div class="form-group {{if className className 'col-md-12'}} {{if activeErrors 'has-error'}}">
-    <label for="{{attribute}}">{{label}}</label>
+    {{#if label}}
+      <label for="{{attribute}}">{{label}}</label>
+    {{/if}}
 
     {{#if readonly}}
       {{#if checkbox}}

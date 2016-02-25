@@ -14,7 +14,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   setupController(controller, model) {
     this._super(controller, model);
-    const{
+    const {
       modelName
     } = getProperties(this, 'modelName');
 
@@ -25,16 +25,18 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     controller.init();
   },
 
-  renderTemplate: function(){
+  renderTemplate: function() {
     this.render('magic-crud/table');
   },
 
-  model(){
-    return this.store.findAll(this.get('modelName'), { reload: true }).then(a => a.filterBy('isNew', false));
+  model() {
+    return this.store.findAll(this.get('modelName'), {
+      reload: true
+    }).then(a => a.filterBy('isNew', false));
   },
 
-  deleteRecord(item){
-    const{
+  deleteRecord(item) {
+    const {
       routeName,
       deleteMessageSuccess,
       deleteMessageFailed
@@ -46,23 +48,21 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     item.deleteRecord();
     item.save().then(() => {
       flashMessages.success(deleteMessageSuccess);
-    },() => {
+    }, () => {
       flashMessages.danger(deleteMessageFailed);
     });
   },
 
-  actions:{
-    goToAction(operation, item){
+  actions: {
+    goToAction(operation, item) {
 
       let routeName = this.get('routeName').replace('.index', '');
 
-      if(operation === 'delete'){
+      if (operation === 'delete') {
         this.deleteRecord(item);
-      }
-      else if(operation === 'add'){
+      } else if (operation === 'add') {
         this.transitionTo(routeName + '.' + operation);
-      }
-      else{
+      } else {
         this.transitionTo(routeName + '.' + operation, item);
       }
     }

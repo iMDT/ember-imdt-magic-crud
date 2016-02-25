@@ -9,44 +9,44 @@ export default Ember.Component.extend({
   firstIteration: true,
 
   // Starts the input value and type
-  didInsertElement(){
+  didInsertElement() {
     this.set('value', this.get(this.get('attribute')));
 
     switch (this.get('type')) {
       case 'text':
-          this.set('text', true);
-          break;
+        this.set('text', true);
+        break;
       case 'password':
-          this.set('password', true);
-          break;
+        this.set('password', true);
+        break;
       case 'checkbox':
-          this.set('checkbox', true);
-          break;
+        this.set('checkbox', true);
+        break;
       case 'switch':
-          this.set('switch', true);
-          break;
+        this.set('switch', true);
+        break;
       case 'select':
-          this.set('select', true);
-          break;
+        this.set('select', true);
+        break;
       case 'multiselect':
-          this.set('multiSelect', true);
-          break;
+        this.set('multiSelect', true);
+        break;
       case 'textarea':
-          this.set('textarea', true);
-          break;
+        this.set('textarea', true);
+        break;
       default:
         break;
     }
   },
 
   // Select processed content
-  processedContent: Ember.computed('selectContent', function(){
-    const{
+  processedContent: Ember.computed('selectContent', function() {
+    const {
       optionValuePath,
       optionLabelPath
     } = getProperties(this, 'optionValuePath', 'optionLabelPath');
 
-    if(this.get('type') === 'select' || this.get('type') === 'multiselect'){
+    if (this.get('type') === 'select' || this.get('type') === 'multiselect') {
       this.set('processedPath', optionValuePath);
       this.set('processedLabel', optionLabelPath);
 
@@ -58,8 +58,8 @@ export default Ember.Component.extend({
   }),
 
   // Active input errors
-  activeErrors: Ember.computed('value', 'model', 'errors', 'submitted', function(){
-    if(this.get('firstIteration') !== true){
+  activeErrors: Ember.computed('value', 'model', 'errors', 'submitted', function() {
+    if (this.get('firstIteration') !== true) {
       return this.get('errors.' + this.get('attribute'));
     }
     this.set('firstIteration', false);
@@ -69,17 +69,17 @@ export default Ember.Component.extend({
   // Input value
   value: Ember.computed('attribute', 'model', {
     set(key, value) {
-      // console.log(key);
-      // console.log(value);
-      // console.log(this.get('attribute'));
-      if(this.get('type') !== 'multiselect'){
-        this.set(this.get('attribute'), value);
+        // console.log(key);
+        // console.log(value);
+        // console.log(this.get('attribute'));
+        if (this.get('type') !== 'multiselect') {
+          this.set(this.get('attribute'), value);
+        }
+        return value;
+      },
+      get: function() {
+        return this.get(this.get('attribute'));
       }
-      return value;
-    },
-    get: function() {
-      return this.get(this.get('attribute'));
-    }
   }),
 
   // actions:{

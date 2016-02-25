@@ -4,108 +4,116 @@
 This Ember Addon is a utility for simplifying the adition of simple CRUD (Create, Read, Update and Delete) functionality to ember projects.
 
 ## Dependencies
-In order for this addon to work it will have to install it's required addons to your host application, but don't worry, they are mostly for displaying information, the addons that will be installed with ember-imdt-magic-crud are ember-imdt-table, ember-validations, ember-bootstrap-switch, Ember-selectize.
+In order for this addon to work it will have to install it's required addons to your host application, but don't worry, they are just for displaying information and validation.
 
 ### Pages
 * [Ember-imdt-table - Table component](https://www.npmjs.com/package/ember-imdt-table)
 * [Ember-validations - Form validation](https://github.com/dockyard/ember-validations)
 * [Ember-bootstrap-switch - Bootstrap switch](https://github.com/Panman8201/ember-bootstrap-switch)
-* [Ember-selectize - Select and multi select](https://github.com/miguelcobain/ember-cli-selectize)
+* [Ember-selectize - multi select (will soon be fully replaced for ember-power-select)](https://github.com/miguelcobain/ember-cli-selectize)
+* [Ember-power-select - Select component](https://github.com/cibernox/ember-power-select)
 
 ## Setting up your magic-cruds
 
+### The blueprint
 After you have everything installed and ready to go, it is time to start coding.
-in order for you to have a magic crud working, you need 3 things:
+in order to create a magic-crud you can use the blueprint that we provide like this: `ember generate magic-crud <resource name>`, this will create the routes, and the controller you need in order for the crud to work, after this you will only need
+to set the crud settings in your generated controller and create the routes in the router.
 
-1. Some data to display in the table, for instance a `Model`
-2. A `Route` that mixin the `magic-route` addon's `Mixin`
-3. A `Controller` with the table and form definitions
-
-#### Here is how your `Routes` should look like:
+### The router
+Now all you need to do is set the routes in your router. In your router you can use the `magicRouteMapper`, this will create the `index`, `add`, `edit` and `show` routes in your router in a single line of code. here is an example.
 
 ```javascript
-/* app/routes/person.js */
+// router.js
 import Ember from 'ember';
-import MagicRoute from 'ember-imdt-magic-crud/mixins/magic-route';
+import config from './config/environment';
 
-export default Ember.Route.extend(MagicRoute, {});
+var Router = Ember.Router.extend({
+  location: config.locationType
+});
 
-/* app/routes/person/add.js */
-import Ember from 'ember';
-import MagicRoute from 'ember-imdt-magic-crud/mixins/magic-route';
-
-export default Ember.Route.extend(MagicRoute, {});
-
-/* app/routes/person/edit.js */
-import Ember from 'ember';
-import MagicRoute from 'ember-imdt-magic-crud/mixins/magic-route';
-
-export default Ember.Route.extend(MagicRoute, {});
-
-```
-
-#### Also, edit your router in order for the parameters to match the route
-
-```javascript
-import Ember from 'ember';
+const MagicRouter = MagicRouteMapper.create();
 
 Router.map(function() {
-  this.route('person', function() {
-    this.route('add');
-    this.route('edit', {path:'edit/:id'});
-  });
+  MagicRouter.map(this, 'person');
+  MagicRouter.map(this, 'city');
+  MagicRouter.map(this, 'country');
 });
 
 export default Router;
-
 ```
 
-#### Here is how your `Controller`
+### The controller
+Here is where most of the magic is set to happen. In the controller you set the table and form options. You only need to set these in one controller for each resource, the magic-crud will set the other controllers automatically for you.
+
+The table options are set just like the [`ember-imdt-table`](https://www.npmjs.com/package/ember-imdt-table) addon you can see details there.
+
+#### Form definitions
+The form definitions is where you set the form inputs.
+The supported input types are:
+ - text
+ - password
+ - checkbox
+ - switch
+ - select
+ - multiselect
+ - textarea
+
+#### Validations
+The validations use [`ember-validations`](https://github.com/dockyard/ember-validations), the only difference being that we set the validations in the form definitions.
+
 ```javascript
-/* app/routes/person.js */
 import Ember from 'ember';
 
-const{
+const {
   A
 } = Ember;
 
 export default Ember.Controller.extend({
+  magicCrud: {
+    tableTitle: "Table title goes here",
+    crudTitle: "Form title goes here"
+  },
+
+  tableSortPropertiesMC: new A(['here comes the sort properties:asc']),
   tableOptionsMC: new A([{
     contentPath: 'id',
-    columnTitle: 'Id'
-  },
-  {
+    columnTitle: '#',
+    sortPath: 'id'
+  }, {
     contentPath: 'name',
-    columnTitle: 'Name'
-  },
-  {
+    columnTitle: 'Full Name'
+  }, {
+    contentPath: 'city.name',
+    columnTitle: 'City'
+  }, {
     contentPath: 'template',
     columnTitle: 'Actions',
-    template: 'custom/table-actions',
+    template: 'custom/table-actions-edit-only',
     isSortable: false
   }]),
 
-  formDefinitionsMC: [
-    {
-      attribute: 'model.name',
-      label: 'Name',
-      type: 'text',
-      validations:{
-        presence: true,
-        length: {minimum: 3}
-      }
+  formDefinitionsMC: [{
+    attribute: 'model.city',
+    label: 'City',
+    type: 'select',
+    selectFunction: function(self) {
+      return self.store.findAll('city');
     },
-    {
-   	  attribute: 'model.description',
-      label: 'Description',
-      type: 'text',
-      validations:{
-      	presence:true
-      }
+    selectValuePath: 'id',
+    selectLabelPath: 'name',
+    validations: {
+      relationshipPresence: true
     }
-  ]
+  }, {
+    attribute: 'model.name',
+    label: 'Full Name',
+    type: 'text',
+    validations: {
+      presence: true,
+    }
+  }]
 });
-
 ```
 
-Thats it, you have a fully functional Crud for a model.
+Thats it, any questions or suggestions are welcome as this is a very early stage addon.

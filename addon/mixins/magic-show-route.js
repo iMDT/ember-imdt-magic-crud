@@ -16,17 +16,17 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   // Magic Crud Options object name
   magicCrudObject: 'magicCrud',
 
-  renderTemplate: function(){
+  renderTemplate: function() {
     this.render('magic-crud/show');
   },
 
-  model(param){
+  model(param) {
     return this.store.findRecord(this.get('modelName'), param.id);
   },
 
   setupController(controller, model) {
     this._super(controller, model);
-    const{
+    const {
       routeName,
       validationObject,
       definitionObject,
@@ -36,14 +36,14 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     controller.reopen(MagicCrud);
 
     [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
-        controller.set(obj, this.controllerFor(routeName).get(obj));
+      controller.set(obj, this.controllerFor(routeName).get(obj));
     });
 
     controller.init();
   },
 
-  actions:{
-    cancelAction(){
+  actions: {
+    cancelAction() {
       this.transitionTo(this.get('routeName'));
     },
   }
