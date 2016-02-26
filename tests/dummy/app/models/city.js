@@ -6,7 +6,24 @@ let City = DS.Model.extend({
   }),
   name: DS.attr('string'),
   description: DS.attr('string'),
-  country: DS.belongsTo('country', { async: true })
+  country: DS.belongsTo('country', { async: true }),
+
+  /* DIRTY FIX FOR ROLLBACK ON RELANTIONSHIPS */
+  rollbackAttributes() {
+    this._super(...arguments);
+    this.rollbackRelationships();
+  },
+
+  rollbackRelationships() {
+    let model = this;
+    model.eachRelationship((name, meta) => {
+      if (meta.kind === 'belongsTo') {
+        model.belongsTo(name).reload();
+      } else if (meta.kind === 'hasMany') {
+        model.hasMany(name).reload();
+      }
+    });
+  },
 });
 
 City.reopenClass({

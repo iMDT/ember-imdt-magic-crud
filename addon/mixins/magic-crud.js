@@ -20,7 +20,6 @@ export default Ember.Mixin.create(EmberValidations, {
   // Set the definitions and rerun once
   init() {
     this._super();
-    console.log('initialize');
     this.setDefinitionsMC();
     this.initializeIfNotAlreadyMC();
   },

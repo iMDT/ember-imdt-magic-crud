@@ -1,7 +1,6 @@
 import Ember from 'ember';
 import MagicCrud from './magic-crud';
 import MagicBaseRoute from './magic-base-route';
-import EmberValidations from 'ember-validations';
 
 const {
   getProperties
@@ -44,38 +43,27 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     controller.init();
   },
 
-  saveRecordSuccess() {
-    let controller = this.get('controller');
-    let routeName = this.get('routeName');
-    let saveMessage = this.get('saveMessage');
-    let flashMessages = Ember.get(this, 'flashMessages');
-
-    let routeBaseName = routeName.split('.').slice(0, -1).join('.');
-
-    this.set('canRollbackModel', false);
-    controller.get('model').save().then(() => {
-      let routeAfter;
-      if (controller.get('magicCrud') && (routeAfter = controller.get('magicCrud.routeAfter'))) {
-        controller.transitionToRoute(routeAfter);
-      } else {
-        controller.transitionToRoute(routeBaseName);
-      }
-      flashMessages.success(saveMessage);
-    }, () => {
-      let errors = controller.get('model.errors');
-      errors.forEach(function(error) {
-        flashMessages.danger(error.message);
-      });
-    });
+  messages: {
+    saved: 'Registro salvo com sucesso!',
+    deleted: 'Registro excluido com sucesso!',
   },
 
-  // Fail saving record promisse callback
-  saveRecordFail() {
+  handleSaveSuccess() {
+    return this.transitionTo(this.get('transitionToName') || this.get('routeName').split('.').slice(0, -1).join('.'))
+      .then(() => this.get('flashMessages').success(this.get('messages.saved')));
+  },
+
+  handleDeleteSuccess() {
+    return this.transitionTo(this.get('transitionToName'))
+      .then(() => this.get('flashMessages').success(this.get('messages.deleted')));
+  },
+
+  handleError() {
     let controller = this.get('controller');
     let flashMessages = Ember.get(this, 'flashMessages');
     let definitionObject = this.get('definitionObject');
 
-    let errors = controller.get('errors.model') || controller.get('model.errors');
+    let errors = controller.get('errors.model');
     for (let item in errors) {
       if (errors.hasOwnProperty(item)) {
         let definitions = controller.get(definitionObject);
@@ -88,26 +76,42 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     }
   },
 
+  doSave() {
+    return new Promise((resolve, reject) => {
+      this.get('controller').validate()
+        .then(() => {
+          this.get('currentModel').save()
+            .then((row) => {
+              resolve(row);
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        })
+        .catch((error) => reject(error));
+    });
+  },
+
   actions: {
     saveRecord() {
-        const {
-          controller
-        } = getProperties(this, 'controller');
-        controller.set('submitted', true);
-        controller.validate().then(() => {
-          this.saveRecordSuccess();
-        }, () => {
-          this.saveRecordFail();
-        });
-      },
+      this.set('controller.submitted', true);
+      this.doSave()
+        .then(() => this.handleSaveSuccess())
+        .catch((e) => this.handleError(e));
+    },
 
-      cancelAction() {
-        let routeBaseName = this.get('routeName').split('.').slice(0, -1).join('.');
-        this.transitionTo(routeBaseName);
-      },
+    cancelAction() {
+      this.transitionTo(this.get('transitionToName') || this.get('routeName').split('.').slice(0, -1).join('.'));
+    },
 
-      willTransition() {
-        this.get('currentModel').rollbackAttributes();
-      }
+    deleteRecord() {
+      this.get('currentModel').destroyRecord()
+        .then(() => this.handleDeleteSuccess())
+        .catch((e) => this.handleError(e));
+    },
+    
+    willTransition() {
+      this.get('currentModel').rollbackAttributes();
+    }
   }
 });

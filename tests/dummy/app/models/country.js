@@ -6,6 +6,23 @@ let Country = DS.Model.extend({
   }),
   name: DS.attr('string'),
   description: DS.attr('string'),
+
+  /* DIRTY FIX FOR ROLLBACK ON RELANTIONSHIPS */
+  rollbackAttributes() {
+    this._super(...arguments);
+    this.rollbackRelationships();
+  },
+
+  rollbackRelationships() {
+    let model = this;
+    model.eachRelationship((name, meta) => {
+      if (meta.kind === 'belongsTo') {
+        model.belongsTo(name).reload();
+      } else if (meta.kind === 'hasMany') {
+        model.hasMany(name).reload();
+      }
+    });
+  },
 });
 
 Country.reopenClass({
