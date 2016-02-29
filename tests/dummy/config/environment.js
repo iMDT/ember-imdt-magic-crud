@@ -16,10 +16,16 @@ module.exports = function(environment) {
     contentSecurityPolicy: {
       'default-src': "'none'",
       'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
+      'connect-src': "'self' http://localhost:3000",
       'font-src': "'self' https://fonts.gstatic.com",
       'report-uri': "'localhost'",
       'style-src': "'self' 'unsafe-inline' https://fonts.gstatic.com https://fonts.googleapis.com/css",
       'frame-src': "'self'"
+    },
+
+    API: {
+      baseURL: '',
+      namespace: 'api'
     },
 
     APP: {
@@ -34,6 +40,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.API.baseURL = 'http://localhost:3000';
   }
 
   if (environment === 'test') {
