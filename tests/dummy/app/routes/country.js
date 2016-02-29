@@ -35,6 +35,17 @@ export default Ember.Route.extend(MagicRootRoute, {
       attribute: 'model.active',
       type: 'switch',
     }, {
+      attribute: 'model.country',
+      label: 'Country',
+      type: 'select',
+      selectFunction: function(self) {
+        return self.store.peekAll('country').filter((c) => {
+          return c.get('active') || c.get('id') === self.get('model.country.id');
+        });
+      },
+      selectValuePath: 'id',
+      selectLabelPath: 'name'
+    }, {
       attribute: 'model.name',
       label: 'Name*',
       type: 'text',
