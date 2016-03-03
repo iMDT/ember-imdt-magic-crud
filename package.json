@@ -12,11 +12,11 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "https://github.com/Gcampes/ember-magic-crud.git",
+  "repository": "https://github.com/imdt/ember-imdt-magic-crud.git",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "gcampes",
+  "author": "imdt",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
