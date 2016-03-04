@@ -132,7 +132,7 @@ export default Ember.Route.extend(MagicIndexRoute, {
 ```
 
 ### Templates
-From `0.5.1` you should define your own `magic-crud/form` and `magic-crud/table` templates. like the examples below.
+Starting in `0.5.1` you should define your own `magic-crud/form` and `magic-crud/table` templates. like the examples below.
 
 #### `app/templates/magic-crud/form`
 ```html
