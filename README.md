@@ -131,4 +131,63 @@ export default Ember.Route.extend(MagicIndexRoute, {
 });
 ```
 
+### Templates
+From `0.5.1` you should define your own `magic-crud/form` and `magic-crud/table` templates. like the examples below.
+
+#### `app/templates/magic-crud/form`
+```html
+<div class="page">
+  <div class="page-header">
+    <h3 class="page-title">
+      {{MagicCrud.options.crudTitle}}
+      {{#if model.id}}
+        <small>#{{model.id}}</small>
+        <small class="pull-right"><b>Last Modification:</b> {{moment-format model.modified 'L' allow-empty=true}}</small>
+       {{/if}}
+    </h3>
+  </div>
+  <div class="page-body">
+    <form class="form" {{action "saveRecord" on="submit"}}>
+      {{magic-form model=model errors=errors definitions=MagicCrud.form submitted=submitted}}
+
+      <hr>
+
+      <div class="row form-group">
+        <div class="col-xs-6 col-sm-3 col-lg-2">
+          <button class="btn btn-block btn-lg btn-primary" type="submit">{{fa-icon 'floppy-o' fixedWidth=true}} Save</button>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-lg-2">
+          <button class="btn btn-block btn-lg btn-default" {{action 'cancelAction'}}>{{fa-icon 'undo' fixedWidth=true}} Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+```
+
+#### `app/templates/magic-crud/table`
+```html
+<div class="page">
+  <div class="page-header clearfix">
+    <h3 class="page-title pull-left">
+      {{MagicCrud.options.tableTitle}}
+    </h3>
+    <button class="add btn btn-sm btn-success pull-right" type="button" name="button" {{action 'goToAction' 'new'}}><i class="fa fa-fw fa-plus"></i>  New Record</button>
+  </div>
+
+  <div class="page-body row">
+    <div class="col-md-12">
+      {{imdt-table
+        sortProperties=MagicCrud.table.sortProperties
+        content=model
+        tableClassNames='table table-striped table-hover table-bordered'
+        columns=MagicCrud.table.columns
+        goToAction='goToAction'}}
+    </div>
+  </div>
+</div>
+
+```
+
+
 Thats it, any questions or suggestions are welcome as this is a very early stage addon.

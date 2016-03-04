@@ -32,7 +32,6 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     } = getProperties(this, 'routeName');
 
     let routeBaseName = routeName.split('.').slice(0, -1).join('.');
-
     controller.set('MagicCrud', this.controllerFor(routeBaseName).get('MagicCrud'));
     // [validationObject, definitionObject, magicCrudObject].forEach((obj) => {
     //   controller.set(obj, this.controllerFor(routeBaseName).get(obj));
@@ -109,7 +108,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
         .then(() => this.handleDeleteSuccess())
         .catch((e) => this.handleError(e));
     },
-    
+
     willTransition() {
       this.get('currentModel').rollbackAttributes();
     }
