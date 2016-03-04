@@ -1,4 +1,4 @@
-# Ember Magic Crud
+# Ember-imdt-magic-crud
 This Ember Addon is a utility for simplifying the adition of simple CRUD (Create, Read, Update and Delete) functionality to ember projects.
 
 ## Dependencies
