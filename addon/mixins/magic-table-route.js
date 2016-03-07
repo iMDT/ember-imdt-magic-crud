@@ -28,7 +28,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   },
 
   model() {
-    return this.store.findAll(this.get('modelName'), {
+    return this.store.findAll(Ember.Inflector.inflector.singularize(this.get('modelName')), {
       reload: true
     }).then(a => a.filterBy('isNew', false));
   },
