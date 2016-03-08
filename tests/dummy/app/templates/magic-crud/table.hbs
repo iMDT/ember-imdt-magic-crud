@@ -1,0 +1,19 @@
+<div class="page">
+  <div class="page-header clearfix">
+    <h3 class="page-title pull-left">
+      {{MagicCrud.options.tableTitle}}
+    </h3>
+    <button class="add btn btn-sm btn-success pull-right" type="button" name="button" {{action 'goToAction' 'new'}}><i class="fa fa-fw fa-plus"></i>  Adicionar</button>
+  </div>
+
+  <div class="page-body row">
+    <div class="col-md-12">
+      {{imdt-table
+        sortProperties=MagicCrud.table.sortProperties
+        content=model
+        tableClassNames='table table-striped table-hover table-bordered'
+        columns=MagicCrud.table.columns
+        goToAction='goToAction'}}
+    </div>
+  </div>
+</div>

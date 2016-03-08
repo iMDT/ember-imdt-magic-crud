@@ -1,17 +1,56 @@
-<div class="row">
+{{#bs-form model=model action="saveRecord"}}
   {{#each definitions as |definition|}}
-    {{magic-input
-      model=model
-      attribute=definition.attribute
-      className=definition.className
-      label=definition.label
-      type=definition.type
-      selectFunction=definition.selectFunction
-      selectContent=definition.selectContent
-      optionValuePath=definition.selectValuePath
-      optionLabelPath=definition.selectLabelPath
-      errors=errors
-      submitted=submitted
-      readonly=readonly}}
+    {{#unless definition.readonly}}
+      {{#if (eq definition.type 'text')}}
+        {{bs-form-element controlType="text" label=definition.label useIcons=false property=definition.attribute}}
+      {{else if (eq definition.type 'switch')}}
+        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
+          {{bs-switch class="form-control" checked=value on-text='Ativo' off-text='Inativo'}}
+        {{/bs-form-element}}
+      {{else if (eq definition.type 'select')}}
+        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
+          {{#power-select selected=value options=selectContent searchField=optionLabelPath onchange=(action (mut value)) as |item|}}
+            <div class="ember-power-select-item">
+              {{power-select-item item=item processedLabel=optionLabelPath}}
+            </div>
+          {{/power-select}}
+        {{/bs-form-element}}
+      {{else if (eq definition.type 'multiselect')}}
+        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
+          {{ember-selectize
+            multiple=true
+            content=definition.selectContent
+            optionValuePath=definition.selectValuePath
+            optionLabelPath=definition.selectLabelPath
+            selection=value}}
+        {{/bs-form-element}}
+      {{else if (eq definition.type 'textarea')}}
+        {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}
+      {{/if}}
+    {{else}}
+      <small>sorry, not implemented as of this version {{fa-icon 'frown'}}</small>
+    {{/unless}}
   {{/each}}
-</div>
+
+  <hr>
+    <div class="row">
+      <div class="col-xs-6 col-sm-3 col-lg-2">
+        {{bs-button
+          buttonType="submit"
+          type="primary"
+          size="lg"
+          block=true
+          icon="fa fa-floppy-o"
+          defaultText="Salvar"}}
+      </div>
+      <div class="col-xs-6 col-sm-3 col-lg-2">
+        {{bs-button
+          type="default"
+          size="lg"
+          block=true
+          icon="fa fa-undo"
+          defaultText="Cancelar"
+          action="cancelAction"}}
+      </div>
+    </div>
+{{/bs-form}}

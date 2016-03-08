@@ -35,10 +35,10 @@ export default Ember.Route.extend(MagicRootRoute, {
     },
 
     form: [{
-      attribute: 'model.active',
+      attribute: 'active',
       type: 'switch',
     }, {
-      attribute: 'model.country',
+      attribute: 'country',
       label: 'Country',
       type: 'select',
       selectFunction: function(self) {
@@ -49,14 +49,14 @@ export default Ember.Route.extend(MagicRootRoute, {
       selectValuePath: 'id',
       selectLabelPath: 'name'
     }, {
-      attribute: 'model.name',
+      attribute: 'name',
       label: 'Name',
       type: 'text',
       validations: {
         presence: true,
       }
     }, {
-      attribute: 'model.description',
+      attribute: 'description',
       label: 'Description',
       type: 'textarea',
       validations: {

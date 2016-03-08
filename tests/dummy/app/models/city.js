@@ -1,6 +1,7 @@
 import DS from 'ember-data';
+import EmberValidations from 'ember-validations';
 
-let City = DS.Model.extend({
+let City = DS.Model.extend(EmberValidations, {
   active: DS.attr('boolean', {
     defaultValue: true
   }),
@@ -24,6 +25,18 @@ let City = DS.Model.extend({
       }
     });
   },
+
+  validations: {
+    name: {
+      length: { minimum: 3 }
+    },
+    description: {
+      length: { minimum: 4 }
+    },
+    country: {
+      relationshipPresence: true
+    }
+  }
 });
 
 City.reopenClass({

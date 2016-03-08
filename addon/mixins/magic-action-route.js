@@ -60,24 +60,20 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   handleError() {
     let controller = this.get('controller');
     let flashMessages = Ember.get(this, 'flashMessages');
-    let definitionObject = this.get('definitionObject');
 
-    let errors = controller.get('errors.model');
-    for (let item in errors) {
-      if (errors.hasOwnProperty(item)) {
-        let definitions = controller.get(definitionObject);
-        for (let def in definitions) {
-          if (definitions[def] && 'model.' + item === definitions[def].attribute && errors.get(item).length) {
-            flashMessages.danger(definitions[def].label + ' ' + errors.get(item));
-          }
-        }
+    Object.keys(controller.get('model.errors')).forEach((attr) => {
+      let errors = controller.get('model.errors.' + attr);
+      if(errors.length){
+        errors.forEach((message) => {
+          flashMessages.danger(`${attr.charAt(0).toUpperCase() + attr.slice(1)} ${message}`);
+        });
       }
-    }
+    });
   },
 
   doSave() {
     return new Promise((resolve, reject) => {
-      this.get('controller').validate()
+      this.get('currentModel').validate()
         .then(() => {
           this.get('currentModel').save()
             .then((row) => {
@@ -93,7 +89,6 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   actions: {
     saveRecord() {
-      this.set('controller.submitted', true);
       this.doSave()
         .then(() => this.handleSaveSuccess())
         .catch((e) => this.handleError(e));

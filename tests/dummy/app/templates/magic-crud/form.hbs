@@ -1,0 +1,43 @@
+<div class="page">
+  <div class="page-header">
+    <h3 class="page-title">
+      {{MagicCrud.options.crudTitle}}
+      {{#if model.id}}
+        <small>#{{model.id}}</small>
+        <small class="pull-right"><b>Última Alteração:</b> {{moment-format model.modificacao 'L' allow-empty=true}}</small>
+       {{/if}}
+    </h3>
+  </div>
+  <div class="page-body">
+    {{#bs-form model=model action="saveRecord"}}
+      {{magic-form model=model errors=errors definitions=MagicCrud.form submitted=submitted}}
+      <hr>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3 col-lg-2">
+          {{bs-button
+            type="primary"
+            size="lg"
+            block=true
+            icon="fa fa-floppy-o"
+            defaultText="Salvar"
+            pendingText="Salvando..."
+            resolvedText="Salvo!"
+            rejectedText="Oups!?"
+            action="saveRecord"}}
+        </div>
+        <div class="col-xs-6 col-sm-3 col-lg-2">
+          {{bs-button
+            type="default"
+            size="lg"
+            block=true
+            icon="fa fa-undo"
+            defaultText="Cancelar"
+            pendingText="Cancelando..."
+            resolvedText="Cancelado!"
+            rejectedText="Oups!?"
+            action="cancelAction"}}
+        </div>
+      </div>
+    {{/bs-form}}
+  </div>
+</div>
