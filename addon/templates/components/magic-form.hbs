@@ -9,9 +9,9 @@
         {{/bs-form-element}}
       {{else if (eq definition.type 'select')}}
         {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-          {{#power-select selected=value options=selectContent searchField=optionLabelPath onchange=(action (mut value)) as |item|}}
+          {{#power-select selected=value options=definition.selectContent searchField=definition.selectLabelPath onchange=(action (mut value)) as |item|}}
             <div class="ember-power-select-item">
-              {{power-select-item item=item processedLabel=optionLabelPath}}
+              {{power-select-item item=item processedLabel=definition.selectLabelPath}}
             </div>
           {{/power-select}}
         {{/bs-form-element}}
