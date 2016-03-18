@@ -53,6 +53,15 @@ export default Ember.Mixin.create(EmberValidations, {
           this.set('MagicCrud.form' + '.' + [key] + '.selectContent', selectFunction(this));
         }
 
+        if(definition.type === 'fieldset'){
+          definition.children.forEach((item, child) => {
+            if(item.selectFunction) {
+              let selectFunction = item.selectFunction;
+              this.set(`MagicCrud.form.${key}.children.${child}.selectContent`, selectFunction(this));
+            }
+          });
+        }
+
       });
       this.set('validations', validations);
     }

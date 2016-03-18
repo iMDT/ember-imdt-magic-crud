@@ -1,36 +1,13 @@
 {{#bs-form model=model action="saveRecord"}}
-  {{#each definitions as |definition|}}
-    {{#unless definition.readonly}}
-      {{#if (eq definition.type 'text')}}
-        {{bs-form-element controlType="text" label=definition.label useIcons=false property=definition.attribute}}
-      {{else if (eq definition.type 'switch')}}
-        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-          {{bs-switch class="form-control" checked=value on-text='Ativo' off-text='Inativo'}}
-        {{/bs-form-element}}
-      {{else if (eq definition.type 'select')}}
-        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-          {{#power-select selected=value options=definition.selectContent searchField=definition.selectLabelPath onchange=(action (mut value)) as |item|}}
-            <div class="ember-power-select-item">
-              {{power-select-item item=item processedLabel=definition.selectLabelPath}}
-            </div>
-          {{/power-select}}
-        {{/bs-form-element}}
-      {{else if (eq definition.type 'multiselect')}}
-        {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-          {{ember-selectize
-            multiple=true
-            content=definition.selectContent
-            optionValuePath=definition.selectValuePath
-            optionLabelPath=definition.selectLabelPath
-            selection=value}}
-        {{/bs-form-element}}
-      {{else if (eq definition.type 'textarea')}}
-        {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}
-      {{/if}}
+<div class="row">
+  {{#each definitions as |def|}}
+    {{#unless def.readonly}}
+      {{partial "magic-crud/form-elements"}}
     {{else}}
       <small>sorry, not implemented as of this version {{fa-icon 'frown'}}</small>
     {{/unless}}
   {{/each}}
+</div>
 
   <hr>
     <div class="row">
