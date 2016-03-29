@@ -16,12 +16,15 @@
       {{/bs-form-element}}
     {{else if (eq definition.type 'multiselect')}}
       {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-        {{ember-selectize
+        {{#power-select
           multiple=true
-          content=definition.selectContent
-          optionValuePath=definition.selectValuePath
-          optionLabelPath=definition.selectLabelPath
-          selection=value}}
+          selected=value
+          options=definition.selectContent
+          onchange=(action (mut value)) as |item|}}
+          <div class="ember-power-select-item">
+            {{power-select-item item=item processedLabel=definition.selectLabelPath}}
+          </div>
+        {{/power-select}}
       {{/bs-form-element}}
     {{else if (eq definition.type 'textarea')}}
       {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}

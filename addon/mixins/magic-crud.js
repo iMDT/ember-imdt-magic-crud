@@ -67,6 +67,42 @@ export default Ember.Mixin.create(EmberValidations, {
     }
   },
 
+  filterByAtivoOrCurrent(row, related, kind) {
+    if(kind === 'belongsTo') {
+      if(related) {
+        return row.get('id') === related.get('id') || row.get('ativo');
+      }
+
+      return row.get('ativo');
+    } else if(kind === 'hasMany') {
+      if(related) {
+        return related.isAny('id', row.get('id')) || row.get('ativo');
+      }
+
+      return row.get('ativo');
+    }
+
+    return true;
+  },
+
+  ativoCurrent(attribute) {
+    let model = this.get('model');
+    let ativosCurrent;
+    let self = this;
+    model.eachRelationship((name, meta) => {
+      if(name === attribute){
+        ativosCurrent = Ember.computed('model.id', function() {
+          return Promise.all([self.store.findAll(meta.type), model.get(attribute)]).then((values) => {
+            let [all, related] = values;
+            return all.filter(row => self.filterByAtivoOrCurrent(row, related, meta.kind));
+          });
+        });
+      }
+    });
+
+    return ativosCurrent;
+  },
+
   // Rerun setDefinitionsMC on model change, this is for reloading fetched parameters of forms e.g: select input
   didModelChangeMC: Ember.observer('model', function() {
     this.setDefinitionsMC();
