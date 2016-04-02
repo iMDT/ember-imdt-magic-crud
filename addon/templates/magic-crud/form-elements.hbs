@@ -21,9 +21,7 @@
           selected=value
           options=definition.selectContent
           onchange=(action (mut value)) as |item|}}
-          <div class="ember-power-select-item">
-            {{power-select-item item=item processedLabel=definition.selectLabelPath}}
-          </div>
+          {{power-select-item item=item processedLabel=definition.selectLabelPath}}
         {{/power-select}}
       {{/bs-form-element}}
     {{else if (eq definition.type 'textarea')}}
