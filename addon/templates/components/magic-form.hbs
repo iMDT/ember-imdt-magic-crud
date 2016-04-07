@@ -9,25 +9,32 @@
   {{/each}}
 </div>
 
-  <hr>
-    <div class="row">
-      <div class="col-xs-6 col-sm-3 col-lg-2">
-        {{bs-button
-          buttonType="submit"
-          type="primary"
-          size="lg"
-          block=true
-          icon="fa fa-floppy-o"
-          defaultText="Salvar"}}
-      </div>
-      <div class="col-xs-6 col-sm-3 col-lg-2">
-        {{bs-button
-          type="default"
-          size="lg"
-          block=true
-          icon="fa fa-undo"
-          defaultText="Cancelar"
-          action="cancelAction"}}
-      </div>
-    </div>
+<hr>
+
+<div class="row">
+  <div class="col-xs-6 col-sm-3 col-lg-2">
+    {{bs-button
+      buttonType="submit"
+      type="primary"
+      size="lg"
+      block=true
+      icon="fa fa-floppy-o"
+      defaultText="Salvar"
+      pendingText="Salvando..."
+      resolvedText="Salvo!"
+      rejectedText="Oups!?"}}
+  </div>
+  <div class="col-xs-6 col-sm-3 col-lg-2">
+    {{bs-button
+      type="default"
+      size="lg"
+      block=true
+      icon="fa fa-undo"
+      defaultText="Cancelar"
+      pendingText="Cancelando..."
+      resolvedText="Cancelado!"
+      rejectedText="Oups!?"
+      action="cancel"}}
+  </div>
+</div>
 {{/bs-form}}

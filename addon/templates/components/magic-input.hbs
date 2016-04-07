@@ -1,30 +1,30 @@
-  {{#unless readonly}}
-    {{#if text}}
-      {{bs-form-element controlType="text" label=label useIcons=false property=attribute}}
-    {{else if switch}}
-      {{#bs-form-element label=label property=attribute useIcons=false property=attribute as |value id|}}
-        {{bs-switch class="form-control" checked=value on-text='Ativo' off-text='Inativo'}}
-      {{/bs-form-element}}
-    {{else if select}}
-      {{#bs-form-element label=label useIcons=false property=attribute as |value id|}}
-        {{#power-select selected=value options=processedContent searchField=processedLabel onchange=(action (mut value)) as |item|}}
-          <div class="ember-power-select-item">
-            {{power-select-item item=item processedLabel=processedLabel}}
-          </div>
-        {{/power-select}}
-      {{/bs-form-element}}
-    {{else if multiSelect}}
-      {{#bs-form-element label=label useIcons=false property=attribute as |value id|}}
-        {{ember-selectize
-          multiple=true
-          content=processedContent
-          optionValuePath=processedPath
-          optionLabelPath=processedLabel
-          selection=value}}
-      {{/bs-form-element}}
-    {{else if textarea}}
-      {{bs-form-element controlType="textarea" label=label useIcons=false property=attribute}}
-    {{/if}}
-  {{else}}
-    <small>sorry, not implemented as of this version {{fa-icon 'frown'}}</small>
-  {{/unless}}
+{{#unless readonly}}
+  {{#if text}}
+    {{bs-form-element controlType="text" label=label useIcons=false property=attribute}}
+  {{else if switch}}
+    {{#bs-form-element label=label property=attribute useIcons=false property=attribute as |value id|}}
+      {{bs-switch class="form-control" checked=value on-text='Ativo' off-text='Inativo'}}
+    {{/bs-form-element}}
+  {{else if select}}
+    {{#bs-form-element label=label useIcons=false property=attribute as |value id|}}
+      {{#power-select selected=value options=processedContent searchField=processedLabel onchange=(action (mut value)) as |item|}}
+        <div class="ember-power-select-item">
+          {{power-select-item item=item processedLabel=processedLabel}}
+        </div>
+      {{/power-select}}
+    {{/bs-form-element}}
+  {{else if multiSelect}}
+    {{#bs-form-element label=label useIcons=false property=attribute as |value id|}}
+      {{ember-selectize
+        multiple=true
+        content=processedContent
+        optionValuePath=processedPath
+        optionLabelPath=processedLabel
+        selection=value}}
+    {{/bs-form-element}}
+  {{else if textarea}}
+    {{bs-form-element controlType="textarea" label=label useIcons=false property=attribute}}
+  {{/if}}
+{{else}}
+  <small>sorry, not implemented as of this version {{fa-icon 'frown'}}</small>
+{{/unless}}
