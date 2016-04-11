@@ -11,7 +11,7 @@ export default Ember.Object.extend({
         path: 'show/:id'
       });
       if(callback){
-        callback.bind(this);
+        callback.call(this);
       }
     });
   }
