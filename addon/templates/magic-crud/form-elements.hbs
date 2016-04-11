@@ -28,7 +28,8 @@
       {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}
     {{else if (eq definition.type 'fieldset')}}
       <fieldset>
-        <legend>{{definition.legend}}</legend>
+        <legend>{{{definition.legend}}}</legend>
+        {{{definition.help}}}
         <div class="row">
           {{#each definition.children as |def|}}
             {{partial "magic-crud/form-elements"}}
