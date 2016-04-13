@@ -2,6 +2,7 @@
   <div class={{if definition.className definition.className 'col-sm-12'}}>
     {{#if (eq definition.type 'text')}}
       {{bs-form-element controlType="text" label=definition.label useIcons=false property=definition.attribute}}
+      {{{definition.help}}}
     {{else if (eq definition.type 'switch')}}
       {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
         {{bs-switch class="form-control" checked=value on-text='Ativo' off-text='Inativo'}}
