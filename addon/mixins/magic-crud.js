@@ -85,7 +85,7 @@ export default Ember.Mixin.create(EmberValidations, {
     return true;
   },
 
-  ativoCurrent(attribute) {
+  ativoCurrent(attribute, callback) {
     let model = this.get('model');
     let ativosCurrent;
     let self = this;
@@ -99,7 +99,9 @@ export default Ember.Mixin.create(EmberValidations, {
         });
       }
     });
-
+    if(callback) {
+      return callback(ativosCurrent);
+    }
     return ativosCurrent;
   },
 
