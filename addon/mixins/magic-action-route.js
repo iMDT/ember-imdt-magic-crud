@@ -92,6 +92,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   actions: {
     saveRecord(defer) {
+      console.log('aerg', ...arguments);
       return this.doSave()
         .then(() => this.handleSaveSuccess(defer))
         .catch((e) => {
