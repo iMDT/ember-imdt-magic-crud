@@ -47,9 +47,12 @@ export default Ember.Mixin.create(MagicBaseRoute, {
     deleted: 'Registro excluido com sucesso!',
   },
 
-  handleSaveSuccess() {
+  handleSaveSuccess(defer) {
     return this.transitionTo(this.get('transitionToName') || this.get('routeName').split('.').slice(0, -1).join('.'))
-      .then(() => this.get('flashMessages').success(this.get('messages.saved')));
+      .then(() => {
+        defer.resolve();
+        this.get('flashMessages').success(this.get('messages.saved'));
+      });
   },
 
   handleDeleteSuccess() {
@@ -88,18 +91,21 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   },
 
   actions: {
-    saveRecord() {
-      this.doSave()
-        .then(() => this.handleSaveSuccess())
-        .catch((e) => this.handleError(e));
+    saveRecord(defer) {
+      return this.doSave()
+        .then(() => this.handleSaveSuccess(defer))
+        .catch((e) => {
+          defer.resolve();
+          this.handleError(e);
+        });
     },
 
     cancelAction() {
-      this.transitionTo(this.get('transitionToName') || this.get('routeName').split('.').slice(0, -1).join('.'));
+      return this.transitionTo(this.get('transitionToName') || this.get('routeName').split('.').slice(0, -1).join('.'));
     },
 
     deleteRecord() {
-      this.get('currentModel').destroyRecord()
+      return this.get('currentModel').destroyRecord()
         .then(() => this.handleDeleteSuccess())
         .catch((e) => this.handleError(e));
     },
