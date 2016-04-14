@@ -94,14 +94,18 @@ export default Ember.Mixin.create(EmberValidations, {
         ativosCurrent = Ember.computed('model.id', function() {
           return Promise.all([self.store.findAll(meta.type), model.get(attribute)]).then((values) => {
             let [all, related] = values;
-            return all.filter(row => self.filterByAtivoOrCurrent(row, related, meta.kind));
+            return all.filter(row => self.filterByAtivoOrCurrent(row, related, meta.kind))
+              .then((result) => {
+                if(callback) {
+                  return callback(result);
+                }
+                return result;
+              });
           });
         });
       }
     });
-    if(callback) {
-      return callback(ativosCurrent);
-    }
+
     return ativosCurrent;
   },
 
