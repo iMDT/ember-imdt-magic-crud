@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import EmberValidations from 'ember-validations';
+import { filterByAtivoOrCurrent } from 'ember-imdt-core/utils/relationship-fetch-helper';
 
 export default Ember.Mixin.create(EmberValidations, {
   // Definitions Object name
@@ -89,18 +90,15 @@ export default Ember.Mixin.create(EmberValidations, {
     let model = this.get('model');
     let ativosCurrent;
     let self = this;
+
     model.eachRelationship((name, meta) => {
       if(name === attribute){
         ativosCurrent = Ember.computed('model.id', function() {
-          return Promise.all([self.store.findAll(meta.type), model.get(attribute)]).then((values) => {
-            let [all, related] = values;
-            return all.filter(row => self.filterByAtivoOrCurrent(row, related, meta.kind))
-              .then((result) => {
-                if(callback) {
-                  return callback(result);
-                }
-                return result;
-              });
+          return self.store.filter(meta.type, filterByAtivoOrCurrent(model, attribute, meta)).then((result) => {
+            if(callback) {
+              return callback(result);
+            }
+            return result;
           });
         });
       }
