@@ -45,6 +45,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   messages: {
     saved: 'Registro salvo com sucesso!',
     deleted: 'Registro excluido com sucesso!',
+    error: 'Ops! Erro ao salvar registro',
   },
 
   handleSaveSuccess(defer) {
@@ -61,17 +62,25 @@ export default Ember.Mixin.create(MagicBaseRoute, {
   },
 
   handleError() {
-    let controller = this.get('controller');
-    let flashMessages = Ember.get(this, 'flashMessages');
+    // let controller = this.get('controller');
+    // let flashMessages = Ember.get(this, 'flashMessages');
+    //
+    // Object.keys(controller.get('model.errors')).forEach((attr) => {
+    //   let errors = controller.get('model.errors.' + attr);
+    //   if(errors.length){
+    //     errors.forEach((message) => {
+    //       flashMessages.danger(`${attr.charAt(0).toUpperCase() + attr.slice(1)} ${message}`);
+    //     });
+    //   }
+    // });
 
-    Object.keys(controller.get('model.errors')).forEach((attr) => {
-      let errors = controller.get('model.errors.' + attr);
-      if(errors.length){
-        errors.forEach((message) => {
-          flashMessages.danger(`${attr.charAt(0).toUpperCase() + attr.slice(1)} ${message}`);
-        });
-      }
-    });
+    console.error(e);
+    let baseErrors = this.get('currentModel.errors.base');
+    if(baseErrors) {
+      this.get('currentModel.errors.base').forEach(error => this.get('flashMessages').danger(error.message || error.detail));
+    } else {
+      this.get('flashMessages').danger(this.get('messages.error'));
+    }
   },
 
   doSave() {
@@ -92,7 +101,6 @@ export default Ember.Mixin.create(MagicBaseRoute, {
 
   actions: {
     saveRecord(defer) {
-      console.log('aerg', ...arguments);
       return this.doSave()
         .then(() => this.handleSaveSuccess(defer))
         .catch((e) => {
