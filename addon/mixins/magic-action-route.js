@@ -61,7 +61,7 @@ export default Ember.Mixin.create(MagicBaseRoute, {
       .then(() => this.get('flashMessages').success(this.get('messages.deleted')));
   },
 
-  handleError() {
+  handleError(e) {
     // let controller = this.get('controller');
     // let flashMessages = Ember.get(this, 'flashMessages');
     //
