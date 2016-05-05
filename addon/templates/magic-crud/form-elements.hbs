@@ -37,6 +37,12 @@
           {{/each}}
         </div>
       </fieldset>
+    {{else if (eq definition.type 'row')}}
+      <div class="row">
+        {{#each definition.children as |def|}}
+          {{partial "magic-crud/form-elements"}}
+        {{/each}}
+      </div>
     {{/if}}
   </div>
 {{/with}}
