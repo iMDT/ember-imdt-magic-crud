@@ -8,8 +8,8 @@
         {{bs-switch
           class="form-control"
           checked=value
-          on-text=(if (definition.onText) definition.onText 'Ativo')
-          off-text=(if (definition.offText) definition.offText 'Inativo')}}
+          on-text=(if definition.onText definition.onText 'Ativo')
+          off-text=(if definition.offText definition.offText 'Inativo')}}
       {{/bs-form-element}}
     {{else if (eq definition.type 'select')}}
       {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
