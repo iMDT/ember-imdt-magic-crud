@@ -31,6 +31,14 @@
       {{/bs-form-element}}
     {{else if (eq definition.type 'textarea')}}
       {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}
+    {{else if (eq definition.type 'datepicker')}}
+      {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value|}}
+        {{bootstrap-datepicker class="form-control" placeholder="dd/mm/aaaa" value=value startDate=definition.startDate endDate=definition.endDate}}
+      {{/bs-form-element}}
+    {{else if (eq definition.type 'datetimepicker')}}
+      {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value|}}
+        {{bs-datetimepicker value=value startDate=definition.startDate endDate=definition.endDate}}
+      {{/bs-form-element}}
     {{else if (eq definition.type 'fieldset')}}
       <fieldset>
         <legend>{{{definition.legend}}}</legend>
