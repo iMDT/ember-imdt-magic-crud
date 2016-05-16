@@ -3,6 +3,9 @@
     {{#if (eq definition.type 'text')}}
       {{bs-form-element controlType="text" label=definition.label useIcons=false property=definition.attribute}}
       {{{definition.help}}}
+    {{else if (eq definition.type 'password')}}
+        {{bs-form-element controlType="password" label=definition.label useIcons=false property=definition.attribute}}
+        {{{definition.help}}}
     {{else if (eq definition.type 'switch')}}
       {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
         {{bs-switch
