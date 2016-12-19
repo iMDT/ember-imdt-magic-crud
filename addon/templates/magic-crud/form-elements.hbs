@@ -29,7 +29,7 @@
           options=definition.selectContent
           onchange=(action (mut value)) as |item|}}
           {{get item definition.selectLabelPath}}
-        {{/power-select}}
+        {{/power-select-multiple}}
       {{/bs-form-element}}
     {{else if (eq definition.type 'textarea')}}
       {{bs-form-element controlType="textarea" label=definition.label useIcons=false property=definition.attribute}}
