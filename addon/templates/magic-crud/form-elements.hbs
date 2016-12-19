@@ -24,8 +24,7 @@
       {{/bs-form-element}}
     {{else if (eq definition.type 'multiselect')}}
       {{#bs-form-element label=definition.label useIcons=false property=definition.attribute as |value id|}}
-        {{#power-select
-          multiple=true
+        {{#power-select-multiple
           selected=value
           options=definition.selectContent
           onchange=(action (mut value)) as |item|}}
